@@ -1,0 +1,33 @@
+.contact-section {
+    background: linear-gradient(135deg, var(--dark-bg), var(--dark-card));
+    padding: 50px 0;
+}
+
+.contact-form {
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.contact-form .form-control {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: var(--text-color);
+    transition: all var(--transition-speed);
+}
+
+.contact-form .form-control:focus {
+    background: rgba(255,255,255,0.2);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.3);
+}
+
+.contact-btn {
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border: none;
+    transition: transform var(--transition-speed);
+}
+
+.contact-btn:hover {
+    transform: scale(1.05);
+}

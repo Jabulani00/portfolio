@@ -1,0 +1,129 @@
+/* General Reset */
+body, h1, h2, p, input, button, div {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(135deg, #4f46e5, #6d28d9);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+/* Title Styling */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Form Sections */
+.form-section {
+    background: #ffffff;
+    color: #333333;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+h2 {
+    color: #4f46e5;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.contact-form input {
+    flex: 1 1 calc(50% - 10px);
+    padding: 12px 15px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+/* Option Cards */
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    justify-items: center;
+}
+
+.option-card {
+    background: #f3f4f6;
+    color: #333333;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.option-card:hover {
+    transform: scale(1.05);
+    border-color: #4f46e5;
+}
+
+.option-card.selected {
+    background: #4f46e5;
+    color: #ffffff;
+    border-color: #4f46e5;
+}
+
+/* Quote Summary */
+#quoteSummary {
+    display: none;
+    background: #ffffff;
+    color: #333333;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    max-width: 800px;
+    margin: 20px 0;
+}
+
+#quoteSummary p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+/* Confirm Button */
+#confirmButton {
+    background: #4f46e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: none;
+    margin: 20px 0;
+}
+
+#confirmButton:hover {
+    background: #6d28d9;
+}
+
