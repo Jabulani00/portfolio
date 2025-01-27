@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SaaS Systems Quote Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.6.1/firebase-firestore-compat.js"></script>
+    <link href="css/plarforms.css" rel="stylesheet">
+       <!-- Favicon -->
+       <link rel="icon" type="image/png" href="assests/_DSC00521.JPG" />
+</head>
+<body>
+    <h1>SaaS Systems Quote Calculator</h1>
+    
+    <form id="quoteForm">
+        <div class="system-section">
+            <h2>Select System Type</h2>
+            <select id="systemType" onchange="toggleSystemOptions()">
+                <option value="">Select a System</option>
+                <option value="healthcare">Digital Healthcare Management Suite</option>
+                <option value="event">Enterprise Event Management Solution</option>
+                <option value="supply">Intelligent Supply Chain Management System</option>
+            </select>
+        </div>
+
+        <!-- Healthcare System Options -->
+        <div id="healthcareOptions" class="system-section hidden">
+            <h3>Healthcare Management Suite</h3>
+            <select id="healthcarePlan">
+                <option value="base">Base Plan (Must-Haves)</option>
+                <option value="standard">Standard Plan (Should-Haves)</option>
+                <option value="premium">Premium Plan (Nice-to-Haves)</option>
+                <option value="enterprise">Enterprise Plan (Custom)</option>
+            </select>
+            
+            <select id="healthcareSize">
+                <option value="private">Private Doctor/Clinic</option>
+                <option value="small">Small Hospital/Clinic</option>
+                <option value="medium">Medium Hospital/Clinic</option>
+                <option value="large">Large Hospital/Clinic</option>
+            </select>
+        </div>
+
+        <!-- Event Management Options -->
+        <div id="eventOptions" class="system-section hidden">
+            <h3>Event Management Solution</h3>
+            <select id="eventAttendees">
+                <option value="tier1">1-100 Attendees</option>
+                <option value="tier2">20-250 Attendees</option>
+                <option value="tier3">50-400 Attendees</option>
+                <option value="tier4">100-1000 Attendees</option>
+                <option value="tier5">1000+ Attendees</option>
+            </select>
+            
+            <select id="eventDuration">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="annually">Annually</option>
+            </select>
+
+            <div id="extraAttendeesDiv" class="hidden">
+                <label>Additional Attendees (beyond 1000):</label>
+                <input type="number" id="extraAttendees" min="0" step="150">
+            </div>
+        </div>
+
+        <!-- Supply Chain Options -->
+        <div id="supplyOptions" class="system-section hidden">
+            <h3>Supply Chain Management System</h3>
+            
+            <div class="component-group">
+                <h4>Transportation Management System (TMS)</h4>
+                <input type="checkbox" id="tmsCheck" onchange="toggleCapacity('tms')">
+                <select id="tmsCapacity" disabled>
+                    <option value="small">Small capacity (R15,000/month)</option>
+                    <option value="medium">Medium capacity (R25,000/month)</option>
+                    <option value="large">Large capacity (R45,000/month)</option>
+                </select>
+            </div>
+
+            <div class="component-group">
+                <h4>Warehouse Management System (WMS)</h4>
+                <input type="checkbox" id="wmsCheck" onchange="toggleCapacity('wms')">
+                <select id="wmsCapacity" disabled>
+                    <option value="small">Small warehouse (R18,000/month)</option>
+                    <option value="medium">Medium warehouse (R30,000/month)</option>
+                    <option value="large">Large warehouse (R55,000/month)</option>
+                </select>
+            </div>
+
+            <div class="component-group">
+                <h4>Order Fulfillment Module</h4>
+                <input type="checkbox" id="ofmCheck" onchange="toggleCapacity('ofm')">
+                <select id="ofmCapacity" disabled>
+                    <option value="basic">Basic (R8,000/month)</option>
+                    <option value="standard">Standard (R15,000/month)</option>
+                    <option value="enterprise">Enterprise (R25,000/month)</option>
+                </select>
+            </div>
+
+            <div class="component-group">
+                <h4>Customer Portal</h4>
+                <input type="checkbox" id="portalCheck" onchange="toggleCapacity('portal')">
+                <select id="portalCapacity" disabled>
+                    <option value="basic">Basic (R5,000/month)</option>
+                    <option value="professional">Professional (R12,000/month)</option>
+                    <option value="enterprise">Enterprise (R20,000/month)</option>
+                </select>
+            </div>
+
+            <div class="component-group">
+                <h4>Admin Dashboard</h4>
+                <input type="checkbox" id="adminCheck" onchange="toggleCapacity('admin')">
+                <select id="adminCapacity" disabled>
+                    <option value="basic">Basic (R4,000/month)</option>
+                    <option value="professional">Professional (R8,000/month)</option>
+                    <option value="enterprise">Enterprise (R15,000/month)</option>
+                </select>
+            </div>
+
+            <div class="component-group">
+                <h4>Additional Options</h4>
+                <label>Number of Additional Users:</label>
+                <input type="number" id="additionalUsers" min="0" value="0"><br>
+                <label>Premium Support:</label>
+                <input type="checkbox" id="premiumSupport">
+            </div>
+        </div>
+
+        <div class="total-section">
+            <h3>Total Quote</h3>
+            <p>Monthly Cost: R<span id="monthlyTotal">0</span></p>
+            <p>Annual Cost: R<span id="annualTotal">0</span></p>
+        </div>
+
+        <div class="contact-section">
+            <h3>Your Contact Information</h3>
+            <input type="text" id="customerName" placeholder="Your Name" required>
+            <input type="email" id="customerEmail" placeholder="Your Email" required>
+            <input type="tel" id="customerPhone" placeholder="Your Phone">
+            <textarea id="customerNotes" placeholder="Additional Notes"></textarea>
+        </div>
+
+        <button type="button" onclick="saveQuote()">Save Quote</button>
+    </form>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-dWJYv1m5EoHT2AkcOUzrerIWy4biGd4",
+            authDomain: "jabulanigwalaportfolio.firebaseapp.com",
+            projectId: "jabulanigwalaportfolio",
+            storageBucket: "jabulanigwalaportfolio.firebasestorage.app",
+            messagingSenderId: "961267386634",
+            appId: "1:961267386634:web:0d466c481eb2d36ee892f3"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function toggleSystemOptions() {
+            const systemType = document.getElementById('systemType').value;
+            
+            // Hide all system options first
+            document.getElementById('healthcareOptions').classList.add('hidden');
+            document.getElementById('eventOptions').classList.add('hidden');
+            document.getElementById('supplyOptions').classList.add('hidden');
+            
+            // Show selected system options
+            if (systemType) {
+                document.getElementById(systemType + 'Options').classList.remove('hidden');
+            }
+            
+            calculateTotal();
+        }
+
+        function toggleCapacity(component) {
+            const checkbox = document.getElementById(component + 'Check');
+            const select = document.getElementById(component + 'Capacity');
+            select.disabled = !checkbox.checked;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let monthlyTotal = 0;
+            const systemType = document.getElementById('systemType').value;
+
+            if (systemType === 'healthcare') {
+                monthlyTotal = calculateHealthcareTotal();
+            } else if (systemType === 'event') {
+                monthlyTotal = calculateEventTotal();
+            } else if (systemType === 'supply') {
+                monthlyTotal = calculateSupplyChainTotal();
+            }
+
+            document.getElementById('monthlyTotal').textContent = monthlyTotal.toLocaleString();
+            document.getElementById('annualTotal').textContent = (monthlyTotal * 12).toLocaleString();
+        }
+
+        function calculateHealthcareTotal() {
+            const plan = document.getElementById('healthcarePlan').value;
+            const size = document.getElementById('healthcareSize').value;
+            
+            const pricing = {
+                base: {
+                    private: 2500,
+                    small: 5000,
+                    medium: 10000,
+                    large: 20000
+                },
+                standard: {
+                    private: 5000,
+                    small: 10000,
+                    medium: 20000,
+                    large: 30000
+                },
+                premium: {
+                    private: 10000,
+                    small: 20000,
+                    medium: 30000,
+                    large: 40000
+                },
+                enterprise: {
+                    private: 50000,
+                    small: 75000,
+                    medium: 100000,
+                    large: 150000
+                }
+            };
+
+            return pricing[plan][size];
+        }
+
+        function calculateEventTotal() {
+            const attendees = document.getElementById('eventAttendees').value;
+            const duration = document.getElementById('eventDuration').value;
+            
+            const pricing = {
+                tier1: {
+                    daily: 150,
+                    weekly: 600,
+                    monthly: 1500,
+                    quarterly: 4000,
+                    annually: 15000
+                },
+                tier2: {
+                    daily: 270,
+                    weekly: 1080,
+                    monthly: 2700,
+                    quarterly: 7200,
+                    annually: 27000
+                },
+                tier3: {
+                    daily: 550,
+                    weekly: 2200,
+                    monthly: 5500,
+                    quarterly: 15000,
+                    annually: 55000
+                },
+                tier4: {
+                    daily: 1300,
+                    weekly: 5200,
+                    monthly: 13000,
+                    quarterly: 35000,
+                    annually: 130000
+                },
+                tier5: {
+                    daily: 1500,
+                    weekly: 6000,
+                    monthly: 13000,
+                    quarterly: 40500,
+                    annually: 150000
+                }
+            };
+
+            let total = pricing[attendees][duration];
+
+            if (attendees === 'tier5') {
+                const extraAttendees = document.getElementById('extraAttendees').value;
+                const extraCost = Math.ceil(extraAttendees / 150) * 1000;
+                total += extraCost;
+            }
+
+            return total;
+        }
+
+        function calculateSupplyChainTotal() {
+            let total = 0;
+
+            // TMS
+            if (document.getElementById('tmsCheck').checked) {
+                const tmsCapacity = document.getElementById('tmsCapacity').value;
+                const tmsPricing = {
+                    small: 15000,
+                    medium: 25000,
+                    large: 45000
+                };
+                total += tmsPricing[tmsCapacity];
+            }
+
+            // WMS
+            if (document.getElementById('wmsCheck').checked) {
+                const wmsCapacity = document.getElementById('wmsCapacity').value;
+                const wmsPricing = {
+                    small: 18000,
+                    medium: 30000,
+                    large: 55000
+                };
+                total += wmsPricing[wmsCapacity];
+            }
+
+            // Order Fulfillment
+            if (document.getElementById('ofmCheck').checked) {
+                const ofmCapacity = document.getElementById('ofmCapacity').value;
+                const ofmPricing = {
+                    basic: 8000,
+                    standard: 15000,
+                    enterprise: 25000
+                };
+                total += ofmPricing[ofmCapacity];
+            }
+
+            // Customer Portal
+            if (document.getElementById('portalCheck').checked) {
+                const portalCapacity = document.getElementById('portalCapacity').value;
+                const portalPricing = {
+                    basic: 5000,
+                    professional: 12000,
+                    enterprise: 20000
+                };
+                total += portalPricing[portalCapacity];
+            }
+
+            // Admin Dashboard
+            if (document.getElementById('adminCheck').checked) {
+                const adminCapacity = document.getElementById('adminCapacity').value;
+                const adminPricing = {
+                    basic: 4000,
+                    professional: 8000,
+                    enterprise: 15000
+                };
+                total += adminPricing[adminCapacity];
+            }
+
+            // Additional Users
+            const additionalUsers = document.getElementById('additionalUsers').value;
+            total += additionalUsers * 500;
+
+            // Premium Support
+            if (document.getElementById('premiumSupport').checked) {
+                total += 5000;
+            }
+
+            return total;
+        }
+
+        function saveQuote() {
+    if (!validateForm()) return;
+
+    const quote = {
+        systemType: document.getElementById('systemType').value,
+        customerName: document.getElementById('customerName').value,
+        customerEmail: document.getElementById('customerEmail').value,
+        customerPhone: document.getElementById('customerPhone').value,
+        customerNotes: document.getElementById('customerNotes').value,
+        monthlyTotal: parseFloat(document.getElementById('monthlyTotal').textContent.replace(/,/g, '')),
+        annualTotal: parseFloat(document.getElementById('annualTotal').textContent.replace(/,/g, '')),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    // Add system-specific details
+    switch(quote.systemType) {
+        case 'healthcare':
+            quote.details = {
+                plan: document.getElementById('healthcarePlan').value,
+                size: document.getElementById('healthcareSize').value
+            };
+            break;
+        case 'event':
+            quote.details = {
+                attendees: document.getElementById('eventAttendees').value,
+                duration: document.getElementById('eventDuration').value,
+                extraAttendees: parseInt(document.getElementById('extraAttendees').value) || 0
+            };
+            break;
+        case 'supply':
+            quote.details = {
+                components: ['tms', 'wms', 'ofm', 'portal', 'admin'].reduce((acc, component) => {
+                    if (document.getElementById(`${component}Check`).checked) {
+                        acc[component] = document.getElementById(`${component}Capacity`).value;
+                    }
+                    return acc;
+                }, {}),
+                additionalUsers: parseInt(document.getElementById('additionalUsers').value) || 0,
+                premiumSupport: document.getElementById('premiumSupport').checked
+            };
+            break;
+    }
+
+    // Save to Firestore
+    db.collection('rentalQuotes').add(quote)
+        .then((docRef) => {
+            alert('Quote saved successfully! Reference ID: ' + docRef.id);
+            // Optionally reset form here
+        })
+        .catch((error) => {
+            console.error('Error saving quote: ', error);
+            alert('Error saving quote. Please try again.');
+        });
+}
+</script>
+</body>
+</html>
