@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jabulani Gwala - Full Stack Developer</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/_DSC0052.JPG">
+
+    
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
+   
     <!-- Custom CSS -->
     <style>
         :root {
@@ -94,368 +98,533 @@
     </nav>
 
     <main class="container py-5">
-        <!-- About Section -->
-        <section id="about" class="mb-5">
+   
+      <!-- About Section -->
+      <section class="about-section">
+        <div class="about-container">
             <div class="row">
                 <div class="col-md-4 text-center">
-                    <img src="assests/_DSC0052.JPG" alt="Jabulani Gwala" class="profile-img mb-3">
+                    <div class="profile-container">
+                        <img src="assests/_DSC0052.JPG" alt="Jabulani Gwala" class="profile-img">
+                        <div class="profile-frame"></div>
+                    </div>
                 </div>
                 <div class="col-md-8">
-                    <h1 class="display-4 mb-3" style="color: var(--accent-color);">Jabulani Gwala</h1>
-                    <p class="lead">Software Developer | Project Manager | Innovative SaaS Platform Creator</p>
-                    <p>Experienced full-stack developer specializing in creating transformative digital solutions across web, mobile, and enterprise platforms.</p>
+                    <div class="bio-card">
+                        <h1 class="name-title">Jabulani Gwala</h1>
+                        <span class="role-title">Software Developer & Project Manager</span>
+                        <p class="bio-text">
+                            Passionate about crafting innovative digital solutions that transform ideas into reality. As a full-stack developer and project manager, I specialize in building scalable web applications, mobile solutions, and enterprise platforms that drive business growth and enhance user experience.
+                        </p>
+                        <div class="tech-pills">
+                            <span class="tech-pill">Full Stack Development</span>
+                            <span class="tech-pill">Project Management</span>
+                            <span class="tech-pill">SaaS Platforms</span>
+                            <span class="tech-pill">Innovation</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+
 
         <!-- Projects Section -->
-        <section id="projects" class="mb-5">
-            <h2 class="section-title mb-4">My Projects & Platforms</h2>
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/mk.png" class="card-img-top project-img" alt="MK Votes Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">MK Votes</h5>
-                            <p class="card-text">Voting and electoral engagement platform for the MK party</p>
-                            <a href="https://www.mkvotes.com" target="_blank" class="btn btn-primary btn-sm">Visit Site</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/memproxi.PNG" class="card-img-top project-img" alt="Memproxi Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">Memproxi</h5>
-                            <p class="card-text">Hybrid event and conference management application</p>
-                            <a href="https://www.memproxi.com" target="_blank" class="btn btn-primary btn-sm">Visit Site</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/coop.png" class="card-img-top project-img" alt="CoopCV Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">CoopCV</h5>
-                            <p class="card-text">Collaborative CV and professional networking platform</p>
-                            <a href="https://www.coopcv.com" target="_blank" class="btn btn-primary btn-sm">Visit Site</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/wowjobs.png" class="card-img-top project-img" alt="WowJobs Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">WowJobs</h5>
-                            <p class="card-text">Job search and recruitment platform</p>
-                            <a href="https://www.wowjobs.pro" target="_blank" class="btn btn-primary btn-sm">Visit Site</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/unieasy.png" class="card-img-top project-img" alt="WowJobs Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">UnitEasy</h5>
-                            <p class="card-text">Bringing Customers and Equipment Providers Together Seamlessly with our state-of-the-art platform.</p>
-                            <a href="https://uniteasy-62dbf.web.app" target="_blank" class="btn btn-primary btn-sm">Visit Site</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/WorkscapeWatch.png" class="card-img-top project-img" alt="WowJobs Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">WorkscapeWatch</h5>
-                            <p class="card-text">The Entrepreneurial Vault with blogs, jobs, freelance and business advertisement</p>
-                            <a href="https://workscape.vercel.app" target="_blank" class="btn btn-primary btn-sm">Visit Site</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        
-         <!-- SaaS Platforms Section -->
-        <section id="saas" class="mb-5">
-            <h2 class="section-title mb-4">My SaaS Platforms</h2>
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/healisir.jpg" class="card-img-top project-img" alt="Healisir Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">Healixir</h5>
-                            <p class="card-text">Comprehensive healthcare management platform connecting patients, doctors, and medical services seamlessly.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/memproxi.PNG" class="card-img-top project-img" alt="Memproxi Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">Memproxi</h5>
-                            <p class="card-text">Hybrid event and conference management application facilitating seamless organization and networking.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/lg.jpeg" class="card-img-top project-img" alt="Logimetrics Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">Logimetrics</h5>
-                            <p class="card-text">Advanced logistics, warehouse, and inventory management solution for streamlined operations.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="assests/ux.jpeg" class="card-img-top project-img" alt="UbuntuXchange Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">UbuntuXchange</h5>
-                            <p class="card-text">B2B raw and unprocessed product marketplace connecting businesses and fostering economic collaboration.</p>
-                        </div>
-                    </div>
+<section id="projects" class="mb-5">
+    <h2 class="section-title mb-4">My Projects & Platforms</h2>
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/mk.png" class="card-img-top" alt="MK Votes Platform">
+                <div class="card-body">
+                    <h5 class="card-title">MK Votes</h5>
+                    <p class="card-text">Voting and electoral engagement platform for the MK party.</p>
+                    <a href="https://www.mkvotes.com" target="_blank" class="btn btn-primary">Visit Site</a>
                 </div>
             </div>
-        </section>
-        
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/memproxi.PNG" class="card-img-top" alt="Memproxi Platform">
+                <div class="card-body">
+                    <h5 class="card-title">Memproxi</h5>
+                    <p class="card-text">Hybrid event and conference management application.</p>
+                    <a href="https://www.memproxi.com" target="_blank" class="btn btn-primary">Visit Site</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/coop.png" class="card-img-top" alt="CoopCV Platform">
+                <div class="card-body">
+                    <h5 class="card-title">CoopCV</h5>
+                    <p class="card-text">Collaborative CV and professional networking platform.</p>
+                    <a href="https://www.coopcv.com" target="_blank" class="btn btn-primary">Visit Site</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/wowjobs.png" class="card-img-top" alt="WowJobs Platform">
+                <div class="card-body">
+                    <h5 class="card-title">WowJobs</h5>
+                    <p class="card-text">Job search and recruitment platform.</p>
+                    <a href="https://www.wowjobs.pro" target="_blank" class="btn btn-primary">Visit Site</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/unieasy.png" class="card-img-top" alt="WowJobs Platform">
+                <div class="card-body">
+                    <h5 class="card-title">UnitEasy</h5>
+                    <p class="card-text">Bringing Customers and Equipment Providers Together Seamlessly with our state-of-the-art platform.</p>
+                    <a href="https://uniteasy-62dbf.web.app" target="_blank" class="btn btn-primary">Visit Site</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/WorkscapeWatch.png" class="card-img-top" alt="WowJobs Platform">
+                <div class="card-body">
+                    <h5 class="card-title">WorkscapeWatch</h5>
+                    <p class="card-text">The Entrepreneurial Vault with blogs, jobs, freelance and business advertisement</p>
+                    <a href="https://workscape.vercel.app" target="_blank" class="btn btn-primary">Visit Site</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<!-- SaaS Platforms Section -->
+<section id="saas" class="mb-5">
+    <h2 class="section-title mb-4">My SaaS Platforms</h2>
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/healisir.jpg" class="card-img-top" alt="Healisir Platform">
+                <div class="card-body">
+                    <h5 class="card-title">Healixir</h5>
+                    <p class="card-text">Comprehensive healthcare management platform connecting patients, doctors, and medical services seamlessly.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/memproxi.PNG" class="card-img-top" alt="Memproxi Platform">
+                <div class="card-body">
+                    <h5 class="card-title">Memproxi</h5>
+                    <p class="card-text">Hybrid event and conference management application facilitating seamless organization and networking.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/lg.jpeg" class="card-img-top" alt="Logimetrics Platform">
+                <div class="card-body">
+                    <h5 class="card-title">Logimetrics</h5>
+                    <p class="card-text">Advanced logistics, warehouse, and inventory management solution for streamlined operations.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="glassmorphic-card h-100">
+                <img src="assests/ux.jpeg" class="card-img-top" alt="UbuntuXchange Platform">
+                <div class="card-body">
+                    <h5 class="card-title">UbuntuXchange</h5>
+                    <p class="card-text">B2B raw and unprocessed product marketplace connecting businesses and fostering economic collaboration.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+      
+     
 
 
 
 
         <!-- Tech Expertise Section -->
         <section id="expertise">
-            <h2 class="section-title">Tech Expertise</h2>
-            <div class="expertise-content">
-                <div class="expertise-category">
-                    <div class="expertise-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="expertise-details">
+            <div class="container">
+                <h2 class="section-title">Tech Expertise</h2>
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
                         <h4 class="expertise-title">Frontend</h4>
-                        <p class="expertise-skills">Angular, React Native, JavaScript, HTML/CSS</p>
+                        <p class="expertise-skills">Crafting responsive and intuitive user interfaces with modern frameworks and tools.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Angular</span>
+                            <span class="skill-tag">React Native</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                        </div>
                     </div>
-                </div>
-                <div class="expertise-category">
-                    <div class="expertise-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="expertise-details">
+    
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
                         <h4 class="expertise-title">Backend</h4>
-                        <p class="expertise-skills">Node.js, Firebase, PHP, SQL</p>
+                        <p class="expertise-skills">Building robust and scalable server-side solutions with modern technologies.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Firebase</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">SQL</span>
+                        </div>
                     </div>
-                </div>
-                <div class="expertise-category">
-                    <div class="expertise-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div class="expertise-details">
+    
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
                         <h4 class="expertise-title">Mobile</h4>
-                        <p class="expertise-skills">Ionic, React Native, Java</p>
+                        <p class="expertise-skills">Developing cross-platform mobile applications with native-like performance.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Ionic</span>
+                            <span class="skill-tag">React Native</span>
+                            <span class="skill-tag">Java</span>
+                        </div>
                     </div>
-                </div>
-                <div class="expertise-category">
-                    <div class="expertise-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="expertise-details">
+    
+                    <div class="expertise-card">
+                        <div class="expertise-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
                         <h4 class="expertise-title">Project Management</h4>
-                        <p class="expertise-skills">Agile Methodologies</p>
+                        <p class="expertise-skills">Leading teams and projects with modern agile methodologies and best practices.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Agile</span>
+                            <span class="skill-tag">Scrum</span>
+                            <span class="skill-tag">Kanban</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Pricing & Services Section -->
-        <section id="pricing" class="container py-5">
-            <h2 class="section-title">Comprehensive Pricing & Services</h2>
-            <div class="pricing-grid row">
-                <!-- Web Application Development -->
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="glassmorphic-card p-4">
-                        <h3 class="pricing-title">Web Application Development</h3>
-                        <ul class="pricing-service-list">
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Simple App (CRUD)</span>
-                                <span class="pricing-service-price">R10,000 – R25,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Small Business Tool</span>
-                                <span class="pricing-service-price">R25,000 – R50,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Enterprise Solution</span>
-                                <span class="pricing-service-price">R50,000 – R100,000</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Mobile App Development -->
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="glassmorphic-card p-4">
-                        <h3 class="pricing-title">Mobile App Development</h3>
-                        <ul class="pricing-service-list">
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Basic Mobile App</span>
-                                <span class="pricing-service-price">R15,000 – R40,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Complex App</span>
-                                <span class="pricing-service-price">R40,000 – R70,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Advanced App</span>
-                                <span class="pricing-service-price">R70,000 – R120,000</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- WordPress Websites -->
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="glassmorphic-card p-4">
-                        <h3 class="pricing-title">WordPress Websites</h3>
-                        <ul class="pricing-service-list">
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Personal Site</span>
-                                <span class="pricing-service-price">R5,000 – R10,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Business Website</span>
-                                <span class="pricing-service-price">R10,000 – R20,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">E-Commerce Site</span>
-                                <span class="pricing-service-price">R15,000 – R35,000</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- UI/UX Design -->
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="glassmorphic-card p-4">
-                        <h3 class="pricing-title">UI/UX Design</h3>
-                        <ul class="pricing-service-list">
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Landing Page Design</span>
-                                <span class="pricing-service-price">R3,000 – R6,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Mobile App Design</span>
-                                <span class="pricing-service-price">R5,000 – R10,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Full Website UI Design</span>
-                                <span class="pricing-service-price">R10,000 – R20,000</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
         
-            <!-- Additional Services -->
-            <div class="additional-services mt-4 p-4 glassmorphic-card">
-                <h3 class="h4 text-primary mb-3">💡 Additional Services</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="pricing-service-list">
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Logo Design</span>
-                                <span class="pricing-service-price">R1,000 – R3,000</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Consultation</span>
-                                <span class="pricing-service-price">R250 – R400/hr</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="pricing-service-list">
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">Website Maintenance</span>
-                                <span class="pricing-service-price">R500 – R1,000/month</span>
-                            </li>
-                            <li class="pricing-service-item d-flex justify-content-between">
-                                <span class="pricing-service-name">SEO Setup</span>
-                                <span class="pricing-service-price">R1,500 – R3,000</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <p class="text-muted mt-3 small">
-                    <strong>Note:</strong> Prices are negotiable based on project complexity and specific requirements.
-                </p>
+
+       <!-- Pricing & Services Section -->
+<section id="pricing" class="container py-5">
+    <h2 class="section-title">Comprehensive Pricing & Services</h2>
+    <div class="pricing-grid row">
+        <!-- Web Application Development -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="glassmorphic-card p-4">
+                <h3 class="pricing-title">Web Application Development</h3>
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Simple App (CRUD)</span>
+                        <span class="pricing-service-price">R10,000 – R25,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Small Business Tool</span>
+                        <span class="pricing-service-price">R25,000 – R50,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Enterprise Solution</span>
+                        <span class="pricing-service-price">R50,000 – R100,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Hourly Rate</span>
+                        <span class="pricing-service-price">R600 – R800/hr</span>
+                    </li>
+                </ul>
             </div>
-            <div class="text-center mt-5">
-                <button class="btn btn-primary" onclick="window.location.href='quote.html'">
-                    Get a Quote
-                </button>
+        </div>
+        <!-- Mobile App Development -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="glassmorphic-card p-4">
+                <h3 class="pricing-title">Mobile App Development</h3>
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Basic Mobile App</span>
+                        <span class="pricing-service-price">R15,000 – R40,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Complex App</span>
+                        <span class="pricing-service-price">R40,000 – R70,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Advanced App</span>
+                        <span class="pricing-service-price">R70,000 – R120,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Hourly Rate</span>
+                        <span class="pricing-service-price">R650 – R850/hr</span>
+                    </li>
+                </ul>
             </div>
-        </section>
+        </div>
+        <!-- Hybrid Development -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="glassmorphic-card p-4">
+                <h3 class="pricing-title">Hybrid Development</h3>
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Basic Hybrid App</span>
+                        <span class="pricing-service-price">R12,000 – R30,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Advanced Hybrid App</span>
+                        <span class="pricing-service-price">R30,000 – R60,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Enterprise Hybrid</span>
+                        <span class="pricing-service-price">R60,000 – R100,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Hourly Rate</span>
+                        <span class="pricing-service-price">R600 – R800/hr</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- WordPress Websites -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="glassmorphic-card p-4">
+                <h3 class="pricing-title">WordPress Websites</h3>
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Personal Site</span>
+                        <span class="pricing-service-price">R5,000 – R10,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Business Website</span>
+                        <span class="pricing-service-price">R10,000 – R20,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">E-Commerce Site</span>
+                        <span class="pricing-service-price">R15,000 – R35,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Hourly Rate</span>
+                        <span class="pricing-service-price">R450 – R600/hr</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- ChatBot development -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="glassmorphic-card p-4">
+                <h3 class="pricing-title">Chatbot Development</h3>
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Basic Chatbot</span>
+                        <span class="pricing-service-price">R5,000 – R15,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Intermediate Chatbot</span>
+                        <span class="pricing-service-price">R15,000 – R30,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Advanced Chatbot</span>
+                        <span class="pricing-service-price">R30,000 – R60,000+</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Hourly Rate</span>
+                        <span class="pricing-service-price">R500 – R700/hr</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- UI/UX Design -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="glassmorphic-card p-4">
+                <h3 class="pricing-title">UI/UX Design</h3>
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Landing Page Design</span>
+                        <span class="pricing-service-price">R3,000 – R6,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Mobile App Design</span>
+                        <span class="pricing-service-price">R5,000 – R10,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Full Website UI Design</span>
+                        <span class="pricing-service-price">R10,000 – R20,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Hourly Rate</span>
+                        <span class="pricing-service-price">R500 – R700/hr</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Services -->
+    <div class="additional-services mt-4 p-4 glassmorphic-card">
+        <h3 class="h4 text-primary mb-3">💡 Additional Services</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Logo Design</span>
+                        <span class="pricing-service-price">R1,000 – R3,000</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Consultation</span>
+                        <span class="pricing-service-price">R250 – R400/hr</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="pricing-service-list">
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">Website Maintenance</span>
+                        <span class="pricing-service-price">R500 – R1,000/month</span>
+                    </li>
+                    <li class="pricing-service-item d-flex justify-content-between">
+                        <span class="pricing-service-name">SEO Setup</span>
+                        <span class="pricing-service-price">R1,500 – R3,000</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-muted mt-3 small">
+            <strong>Note:</strong> Prices are negotiable based on project complexity and specific requirements.
+        </p>
+    </div>
+    <div class="text-center mt-5">
+        <button class="btn btn-primary" onclick="window.location.href='quote.html'">
+            Get a Quote
+        </button>
+    </div>
+</section>
         
 
         
     </div>
 
   
-    <div class="row mb-5" id="contact">
-        <div class="col-12">
+    <section id="contact" class="contact-section">
+        <div class="container">
             <h2 class="section-title mb-4">Contact Me</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Durban, South Africa</h5>
-                            <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d225497.2213942834!2d30.947356!3d-29.8625488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7aa0b53cc4759%3A0x75fcb71c30109487!2sDurban!5e0!3m2!1sen!2ssa!4v1706288400000!5m2!1sen!2ssa" 
-                                width="100%" 
-                                height="300" 
-                                style="border:0;" 
-                                allowfullscreen="" 
-                                loading="lazy">
-                            </iframe>
+                    <div class="contact-card">
+                        <div class="contact-info">
+                            <h3 class="location-title">Durban, South Africa</h3>
+                            <div class="map-container">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d225497.2213942834!2d30.947356!3d-29.8625488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7aa0b53cc4759%3A0x75fcb71c30109487!2sDurban!5e0!3m2!1sen!2ssa!4v1706288400000!5m2!1sen!2ssa"
+                                    allowfullscreen=""
+                                    loading="lazy">
+                                </iframe>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Contact Information</h5>
-                            <p><i class="fas fa-envelope"></i> Email: jabula7@outlook.com</p>
-                            <p><i class="fas fa-phone"></i> Phone: +27 (Not Provided)</p>
-                            <p><i class="fas fa-map-marker-alt"></i> Location: Durban, South Africa</p>
+                    
+                    <div class="contact-card">
+                        <div class="contact-info">
+                            <h3 class="location-title">Contact Information</h3>
+                            <div class="contact-info-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0">jabula7@outlook.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0">+27 (Not Provided)</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0">Durban, South Africa</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Send Me a Message</h5>
-                            <form action="https://formspree.io/f/xkgoobww" method="POST">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="_replyto" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="subject" class="form-label">Subject</label>
-                                    <input type="text" class="form-control" id="subject" name="subject" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Send Message</button>
-                            </form>
-                        </div>
+                    <div class="contact-form">
+                        <h3 class="location-title mb-4">Send Me a Message</h3>
+                        <form action="https://formspree.io/f/xkgoobww" method="POST">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="_replyto" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="contact-btn">Send Message</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Add active class to nav links based on current section
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    });
+</script>
+<br>
+<br>
+
 <footer>
     <div class="container">
         <div class="footer-content">
@@ -494,7 +663,7 @@
         <div class="contact-details">
             <p>📍 Based in South Africa | Open to Remote & Hybrid Opportunities</p>
             <p>📞 Available for Freelance & Full-Time Projects</p>
-            <p>© 2024 Jabulani Gwala - Software Development Services</p>
+            <p>© 2025 Jabulani Gwala - Software Development Services</p>
         </div>
     </div>
 </footer>

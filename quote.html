@@ -28,8 +28,10 @@
         <div class="option-grid" id="projectTypeGrid">
             <div class="option-card" data-type="webApp">Web Application</div>
             <div class="option-card" data-type="mobileApp">Mobile App</div>
+            <div class="option-card" data-type="hybridApp">Hybrid App</div>
             <div class="option-card" data-type="wordpress">WordPress Site</div>
             <div class="option-card" data-type="uiux">UI/UX Design</div>
+            <div class="option-card" data-type="logo">Logo Design</div>
         </div>
     </div>
 
@@ -60,7 +62,6 @@
     </div>
 
     <button id="confirmButton">Generate Quote & Send</button>
-
     <script>
         const pricingModel = {
     webApp: {
@@ -101,6 +102,25 @@
             "5000-50000 Users": 2.0
         }
     },
+    hybridApp: {
+        scopes: {
+            "Basic Hybrid App": { basePrice: 12000, description: "Simple cross-platform app with basic features" },
+            "Advanced Hybrid App": { basePrice: 30000, description: "Feature-rich cross-platform application" },
+            "Enterprise Hybrid": { basePrice: 60000, description: "Complex enterprise-level hybrid solution" }
+        },
+        functionalities: {
+            "Cross-Platform UI": 3000,
+            "Native Features Integration": 4000,
+            "Offline Sync": 3500,
+            "Push Notifications": 2500,
+            "Analytics Integration": 2000
+        },
+        userScale: {
+            "Up to 1000 Users": 1.0,
+            "1000-10000 Users": 1.5,
+            "10000+ Users": 2.0
+        }
+    },
     uiux: {
         scopes: {
             "Basic Design Package": { basePrice: 10000, description: "Simple design for small projects" },
@@ -137,6 +157,25 @@
             "Up to 100 Users": 1.0,
             "100-1000 Users": 1.5,
             "1000-10000 Users": 2.0
+        }
+    },
+    logo: {
+        scopes: {
+            "Basic Logo Design": { basePrice: 1000, description: "Simple, modern logo design" },
+            "Professional Logo Package": { basePrice: 2000, description: "Comprehensive logo design with variations" },
+            "Premium Brand Identity": { basePrice: 3000, description: "Complete brand identity package" }
+        },
+        functionalities: {
+            "Multiple Concepts": 500,
+            "Vector Files": 300,
+            "Brand Guidelines": 800,
+            "Social Media Kit": 500,
+            "Stationery Design": 700
+        },
+        userScale: {
+            "Basic License": 1.0,
+            "Commercial License": 1.3,
+            "Extended License": 1.5
         }
     }
 };

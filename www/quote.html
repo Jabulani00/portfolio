@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Quote Calculator</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="css/quote.css" rel="stylesheet">
+</head>
+<body>
+    <div id="loadingOverlay">
+        <div id="loadingSpinner"></div>
+    </div>
+
+    <h1>Project Quote Calculator</h1>
+
+    <div class="contact-form">
+        <input type="text" id="contactName" placeholder="Full Name *" required>
+        <input type="email" id="contactEmail" placeholder="Email *" required>
+        <input type="tel" id="contactPhone" placeholder="Phone Number *" required>
+        <input type="text" id="contactCompany" placeholder="Company (Optional)">
+    </div>
+
+    <div class="form-section" id="projectTypeSection">
+        <h2>1. Project Type</h2>
+        <div class="option-grid" id="projectTypeGrid">
+            <div class="option-card" data-type="webApp">Web Application</div>
+            <div class="option-card" data-type="mobileApp">Mobile App</div>
+            <div class="option-card" data-type="hybridApp">Hybrid App</div>
+            <div class="option-card" data-type="wordpress">WordPress Site</div>
+            <div class="option-card" data-type="uiux">UI/UX Design</div>
+            <div class="option-card" data-type="logo">Logo Design</div>
+        </div>
+    </div>
+
+    <div class="form-section" id="projectScopeSection" style="display:none;">
+        <h2>2. Project Scope</h2>
+        <div class="option-grid" id="projectScopeGrid"></div>
+    </div>
+
+    <div class="form-section" id="functionalitySection" style="display:none;">
+        <h2>3. Features</h2>
+        <div class="option-grid" id="functionalityGrid"></div>
+    </div>
+
+    <div class="form-section" id="userScaleSection" style="display:none;">
+        <h2>4. User Scale</h2>
+        <div class="option-grid" id="userScaleGrid"></div>
+    </div>
+
+    <div id="quoteSummary">
+        <h2>Quote Summary</h2>
+        <p><strong>Project Type:</strong> <span id="summaryProjectType"></span></p>
+        <p><strong>Project Scope:</strong> <span id="summaryProjectScope"></span></p>
+        <p><strong>Selected Features:</strong> <span id="summaryFeatures"></span></p>
+        <p><strong>User Scale:</strong> <span id="summaryUserScale"></span></p>
+        <p><strong>Base Price:</strong> <span id="summaryBasePrice"></span></p>
+        <p><strong>Features Price:</strong> <span id="summaryFeaturesPrice"></span></p>
+        <p><strong>Total Estimated Quote:</strong> <span id="summaryTotalPrice"></span></p>
+    </div>
+
+    <button id="confirmButton">Generate Quote & Send</button>
+    <script>
+        const pricingModel = {
+    webApp: {
+        scopes: {
+            "Small Website (5-10 Pages)": { basePrice: 15000, description: "Perfect for small businesses or personal projects" },
+            "Medium Website (11-20 Pages)": { basePrice: 25000, description: "Ideal for businesses with more content or features" },
+            "Large Website (21-50 Pages)": { basePrice: 40000, description: "Complex sites with extensive content and functionality" }
+        },
+        functionalities: {
+            "User Login": 2000,
+            "Payment System": 5000,
+            "Contact Form": 1500,
+            "Image Gallery": 2500,
+            "Live Chat": 3000
+        },
+        userScale: {
+            "Up to 100 Users": 1.0,
+            "100-1000 Users": 1.5,
+            "1000-10000 Users": 2.0
+        }
+    },
+    mobileApp: {
+        scopes: {
+            "Simple App (1-3 Screens)": { basePrice: 20000, description: "Basic app with minimal features" },
+            "Standard App (4-7 Screens)": { basePrice: 35000, description: "More comprehensive app with multiple functions" },
+            "Complex App (8+ Screens)": { basePrice: 50000, description: "Advanced app with many features and interactions" }
+        },
+        functionalities: {
+            "Maps/Location": 3000,
+            "Push Notifications": 2500,
+            "User Profiles": 2000,
+            "Offline Mode": 4000,
+            "Social Sharing": 1500
+        },
+        userScale: {
+            "Up to 500 Users": 1.0,
+            "500-5000 Users": 1.5,
+            "5000-50000 Users": 2.0
+        }
+    },
+    hybridApp: {
+        scopes: {
+            "Basic Hybrid App": { basePrice: 12000, description: "Simple cross-platform app with basic features" },
+            "Advanced Hybrid App": { basePrice: 30000, description: "Feature-rich cross-platform application" },
+            "Enterprise Hybrid": { basePrice: 60000, description: "Complex enterprise-level hybrid solution" }
+        },
+        functionalities: {
+            "Cross-Platform UI": 3000,
+            "Native Features Integration": 4000,
+            "Offline Sync": 3500,
+            "Push Notifications": 2500,
+            "Analytics Integration": 2000
+        },
+        userScale: {
+            "Up to 1000 Users": 1.0,
+            "1000-10000 Users": 1.5,
+            "10000+ Users": 2.0
+        }
+    },
+    uiux: {
+        scopes: {
+            "Basic Design Package": { basePrice: 10000, description: "Simple design for small projects" },
+            "Comprehensive Design Package": { basePrice: 25000, description: "Detailed design with multiple iterations" },
+            "Premium Design Experience": { basePrice: 40000, description: "High-end design with extensive research and refinement" }
+        },
+        functionalities: {
+            "Brand Identity": 3000,
+            "User Research": 4000,
+            "Wireframing": 2500,
+            "Prototype Testing": 3500,
+            "Design System": 5000
+        },
+        userScale: {
+            "Small Project": 1.0,
+            "Medium Project": 1.5,
+            "Large Enterprise Project": 2.0
+        }
+    },
+    wordpress: {
+        scopes: {
+            "Basic WordPress Site": { basePrice: 12000, description: "Simple website with basic functionality" },
+            "Advanced WordPress Site": { basePrice: 22000, description: "More complex site with custom features" },
+            "E-commerce WordPress Site": { basePrice: 35000, description: "Full-featured online store" }
+        },
+        functionalities: {
+            "E-commerce Integration": 3000,
+            "Custom Theme": 2500,
+            "SEO Optimization": 2000,
+            "Security Plugin": 1500,
+            "Membership Features": 2000
+        },
+        userScale: {
+            "Up to 100 Users": 1.0,
+            "100-1000 Users": 1.5,
+            "1000-10000 Users": 2.0
+        }
+    },
+    logo: {
+        scopes: {
+            "Basic Logo Design": { basePrice: 1000, description: "Simple, modern logo design" },
+            "Professional Logo Package": { basePrice: 2000, description: "Comprehensive logo design with variations" },
+            "Premium Brand Identity": { basePrice: 3000, description: "Complete brand identity package" }
+        },
+        functionalities: {
+            "Multiple Concepts": 500,
+            "Vector Files": 300,
+            "Brand Guidelines": 800,
+            "Social Media Kit": 500,
+            "Stationery Design": 700
+        },
+        userScale: {
+            "Basic License": 1.0,
+            "Commercial License": 1.3,
+            "Extended License": 1.5
+        }
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const projectTypeGrid = document.getElementById('projectTypeGrid');
+    const projectScopeSection = document.getElementById('projectScopeSection');
+    const projectScopeGrid = document.getElementById('projectScopeGrid');
+    const functionalitySection = document.getElementById('functionalitySection');
+    const functionalityGrid = document.getElementById('functionalityGrid');
+    const userScaleSection = document.getElementById('userScaleSection');
+    const userScaleGrid = document.getElementById('userScaleGrid');
+    const quoteSummary = document.getElementById('quoteSummary');
+
+    let selectedProjectType = null;
+    let selectedScope = null;
+    let selectedFunctionalities = new Set();
+    let selectedUserScale = null;
+
+    // Project Type Selection
+    projectTypeGrid.addEventListener('click', (e) => {
+        const projectType = e.target.getAttribute('data-type');
+        if (projectType) {
+            selectedProjectType = projectType;
+            
+            // Reset subsequent selections
+            selectedScope = null;
+            selectedFunctionalities.clear();
+            selectedUserScale = null;
+            
+            // Highlight selected project type
+            projectTypeGrid.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            e.target.classList.add('selected');
+
+            // Populate Scope Options
+            projectScopeGrid.innerHTML = '';
+            Object.entries(pricingModel[projectType].scopes).forEach(([scope, details]) => {
+                const scopeCard = document.createElement('div');
+                scopeCard.classList.add('option-card');
+                scopeCard.textContent = scope;
+                scopeCard.setAttribute('data-description', details.description);
+                projectScopeGrid.appendChild(scopeCard);
+            });
+            projectScopeSection.style.display = 'block';
+            functionalitySection.style.display = 'none';
+            userScaleSection.style.display = 'none';
+            quoteSummary.style.display = 'none';
+        }
+    });
+
+    // Scope Selection
+    projectScopeGrid.addEventListener('click', (e) => {
+        const scope = e.target.textContent;
+        if (scope) {
+            selectedScope = scope;
+            
+            // Reset subsequent selections
+            selectedFunctionalities.clear();
+            selectedUserScale = null;
+            
+            // Highlight selected scope
+            projectScopeGrid.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            e.target.classList.add('selected');
+
+            // Populate Functionality Options
+            functionalityGrid.innerHTML = '';
+            Object.entries(pricingModel[selectedProjectType].functionalities).forEach(([functionality, price]) => {
+                const functionalityCard = document.createElement('div');
+                functionalityCard.classList.add('option-card', 'multi-select');
+                functionalityCard.textContent = functionality;
+                functionalityCard.setAttribute('data-price', price);
+                functionalityGrid.appendChild(functionalityCard);
+            });
+            functionalitySection.style.display = 'block';
+            userScaleSection.style.display = 'none';
+            quoteSummary.style.display = 'none';
+        }
+    });
+
+    // Functionality Selection (Multi-select)
+    functionalityGrid.addEventListener('click', (e) => {
+        if (e.target.classList.contains('multi-select')) {
+            e.target.classList.toggle('selected');
+            
+            // Update selected functionalities
+            selectedFunctionalities.clear();
+            functionalityGrid.querySelectorAll('.selected').forEach(selected => {
+                selectedFunctionalities.add(selected.textContent);
+            });
+
+            // Show User Scale section
+            userScaleGrid.innerHTML = '';
+            Object.entries(pricingModel[selectedProjectType].userScale).forEach(([scale, description]) => {
+                const scaleCard = document.createElement('div');
+                scaleCard.classList.add('option-card');
+                scaleCard.textContent = scale;
+                scaleCard.setAttribute('data-description', description);
+                userScaleGrid.appendChild(scaleCard);
+            });
+            userScaleSection.style.display = 'block';
+            quoteSummary.style.display = 'none';
+        }
+    });
+
+    // User Scale Selection
+    userScaleGrid.addEventListener('click', (e) => {
+        const userScale = e.target.textContent;
+        if (userScale) {
+            selectedUserScale = userScale;
+            
+            // Highlight selected user scale
+            userScaleGrid.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            e.target.classList.add('selected');
+
+            // Calculate Total Price
+            const basePrice = pricingModel[selectedProjectType].scopes[selectedScope].basePrice;
+            const functionalitiesPrice = Array.from(selectedFunctionalities).reduce((total, func) => 
+                total + pricingModel[selectedProjectType].functionalities[func], 0);
+            const userScaleMultiplier = pricingModel[selectedProjectType].userScale[selectedUserScale];
+            
+            const totalPrice = Math.round((basePrice + functionalitiesPrice) * userScaleMultiplier);
+
+            // Update Quote Summary
+            document.getElementById('summaryProjectType').textContent = selectedProjectType.replace(/([A-Z])/g, ' $1').trim();
+            document.getElementById('summaryProjectScope').textContent = selectedScope;
+            document.getElementById('summaryFeatures').textContent = Array.from(selectedFunctionalities).join(', ');
+            document.getElementById('summaryUserScale').textContent = selectedUserScale;
+            document.getElementById('summaryBasePrice').textContent = `R${basePrice.toLocaleString()}`;
+document.getElementById('summaryFeaturesPrice').textContent = `R${functionalitiesPrice.toLocaleString()}`;
+document.getElementById('summaryTotalPrice').textContent = `R${totalPrice.toLocaleString()}`;
+
+            document.getElementById('confirmButton').style.display = 'block';
+            quoteSummary.style.display = 'block';
+        }
+    });
+});
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA-dWJYv1m5EoHT2AkcOUzrerIWy4biGd4",
+    authDomain: "jabulanigwalaportfolio.firebaseapp.com",
+    projectId: "jabulanigwalaportfolio",
+    storageBucket: "jabulanigwalaportfolio.firebasestorage.app",
+    messagingSenderId: "961267386634",
+    appId: "1:961267386634:web:0d466c481eb2d36ee892f3"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// EmailJS Initialization
+(function(){
+    emailjs.init("gjzzVIXQpei8MSkjW"); // Replace with your EmailJS user ID
+})();
+
+function validateContactForm() {
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const phone = document.getElementById('contactPhone').value;
+
+    return name && email && phone;
+}
+
+
+
+document.getElementById('confirmButton').addEventListener('click', () => {
+    if (!validateContactForm()) {
+        alert('Please fill in all required contact fields');
+        return;
+    }
+
+    // Show loading overlay
+    document.getElementById('loadingOverlay').style.display = 'flex';
+
+    const quoteData = {
+        name: document.getElementById('contactName').value,
+        email: document.getElementById('contactEmail').value,
+        phone: document.getElementById('contactPhone').value,
+        company: document.getElementById('contactCompany').value || 'N/A',
+        projectType: document.getElementById('summaryProjectType').textContent,
+        projectScope: document.getElementById('summaryProjectScope').textContent,
+        features: document.getElementById('summaryFeatures').textContent,
+        userScale: document.getElementById('summaryUserScale').textContent,
+        basePrice: document.getElementById('summaryBasePrice').textContent,
+        featuresPrice: document.getElementById('summaryFeaturesPrice').textContent,
+        totalPrice: document.getElementById('summaryTotalPrice').textContent.replace('R', '')
+    };
+
+    // Save to Firestore
+    db.collection('quotes').add(quoteData)
+        .then((docRef) => {
+            // Prepare email parameters
+            const emailParams = {
+                to_name: quoteData.name,
+                to_email: quoteData.email,
+                from_name: 'Project Quote Team',
+                project_type: quoteData.projectType,
+                project_scope: quoteData.projectScope,
+                features: quoteData.features,
+                total_price: quoteData.totalPrice
+            };
+
+            // Send email using EmailJS
+            return emailjs.send('service_3yo4zhq', 'template_uyitjq7', emailParams);
+        })
+        .then(() => {
+            // Hide loading overlay
+            document.getElementById('loadingOverlay').style.display = 'none';
+            alert('Quote generated and sent successfully!');
+        })
+        .catch((error) => {
+            // Hide loading overlay
+            document.getElementById('loadingOverlay').style.display = 'none';
+            console.error("Error: ", error);
+            alert('Failed to generate and send quote. Please try again.');
+        });
+});
+    </script>
+</body>
+</html>

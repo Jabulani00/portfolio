@@ -1,0 +1,117 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --dark-bg: #121212;
+    --dark-card: #1E1E1E;
+    --text-color: #E0E0E0;
+    --accent-color: #e74c3c;
+    --transition-speed: 0.3s;
+}
+
+.about-section {
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-container {
+    position: relative;
+    z-index: 1;
+}
+
+.profile-container {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.profile-img {
+    width: 280px;
+    height: 280px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid rgba(52, 152, 219, 0.3);
+    transition: transform var(--transition-speed) ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}
+
+.profile-frame {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    animation: frameRotate 8s linear infinite;
+}
+
+@keyframes frameRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bio-card {
+    background: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all var(--transition-speed) ease;
+}
+
+.bio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(52, 152, 219, 0.2);
+}
+
+.name-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.role-title {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(231, 76, 60, 0.1);
+    border-radius: 50px;
+}
+
+.bio-text {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.tech-pills {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.tech-pill {
+    padding: 0.5rem 1rem;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 50px;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    transition: all var(--transition-speed) ease;
+}
+
+.tech-pill:hover {
+    background: var(--primary-color);
+    color: var(--dark-bg);
+    transform: translateY(-2px);
+}
