@@ -4,9 +4,11 @@
     <title>SaaS Systems Quote Calculator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.6.1/firebase-app-compat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <link href="css/plarforms.css" rel="stylesheet">
-       <!-- Favicon -->
-       <link rel="icon" type="image/png" href="assests/_DSC00521.JPG" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assests/_DSC00521.JPG" />
 </head>
 <body>
     <h1>SaaS Systems Quote Calculator</h1>
@@ -128,25 +130,48 @@
             </div>
         </div>
 
-        <div class="total-section">
-            <h3>Total Quote</h3>
-            <p>Monthly Cost: R<span id="monthlyTotal">0</span></p>
-            <p>Annual Cost: R<span id="annualTotal">0</span></p>
-        </div>
-
         <div class="contact-section">
             <h3>Your Contact Information</h3>
-            <input type="text" id="customerName" placeholder="Your Name" required>
-            <input type="email" id="customerEmail" placeholder="Your Email" required>
-            <input type="tel" id="customerPhone" placeholder="Your Phone">
-            <textarea id="customerNotes" placeholder="Additional Notes"></textarea>
+            <label for="customerName">Name:</label>
+            <input type="text" id="customerName" oninput="updateContactInfo()" required>
+            
+            <label for="customerEmail">Email:</label>
+            <input type="email" id="customerEmail" oninput="updateContactInfo()" required>
+            
+            <label for="customerPhone">Phone:</label>
+            <input type="tel" id="customerPhone" oninput="updateContactInfo()">
+            
+            <label for="customerNotes">Notes:</label>
+            <textarea id="customerNotes" oninput="updateContactInfo()"></textarea>
+        </div>
+
+
+        <div class="total-section">
+            <h3>Detailed Quote Summary</h3>
+            <p><strong>Selected System:</strong> <span id="selectedSystem">N/A</span></p>
+            <p><strong>Plan/Components:</strong> <span id="selectedPlan">N/A</span></p>
+            <p><strong>Breakdown of Costs:</strong></p>
+            <ul id="costBreakdown"></ul>
+            <p><strong>Monthly Cost:</strong> R<span id="monthlyTotal">0</span></p>
+            <p><strong>Annual Cost:</strong> R<span id="annualTotal">0</span></p>
+        </div>
+
+       
+
+        <div class="contact-display">
+            <p><strong>Name:</strong> <span id="displayCustomerName">N/A</span></p>
+            <p><strong>Email:</strong> <span id="displayCustomerEmail">N/A</span></p>
+            <p><strong>Phone:</strong> <span id="displayCustomerPhone">N/A</span></p>
+            <p><strong>Notes:</strong> <span id="displayCustomerNotes">N/A</span></p>
         </div>
 
         <button type="button" onclick="saveQuote()">Save Quote</button>
+        <p id="confirmationMessage" style="display: none; color: green; font-weight: bold;"></p>
     </form>
 
     <script>
-        // Firebase configuration
+       
+
         const firebaseConfig = {
             apiKey: "AIzaSyA-dWJYv1m5EoHT2AkcOUzrerIWy4biGd4",
             authDomain: "jabulanigwalaportfolio.firebaseapp.com",
@@ -155,10 +180,10 @@
             messagingSenderId: "961267386634",
             appId: "1:961267386634:web:0d466c481eb2d36ee892f3"
         };
-
-        // Initialize Firebase
+        
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+
 
         function toggleSystemOptions() {
             const systemType = document.getElementById('systemType').value;
@@ -176,25 +201,204 @@
             calculateTotal();
         }
 
+        function validateForm() {
+    const name = document.getElementById('customerName').value.trim();
+    const email = document.getElementById('customerEmail').value.trim();
+    
+    if (name === "" || email === "") {
+        alert("Please enter your name and a valid email address before saving.");
+        return false;
+    }
+    
+    return true;
+}
+
+function generateQuoteSerial() {
+    return "Q-" + Math.floor(Math.random() * 1000000);
+}
+function saveQuote() {
+        if (!validateForm()) return;
+
+        const quote = {
+            systemType: document.getElementById('systemType').value,
+            customerName: document.getElementById('customerName').value,
+            customerEmail: document.getElementById('customerEmail').value,
+            customerPhone: document.getElementById('customerPhone').value,
+            customerNotes: document.getElementById('customerNotes').value,
+            monthlyTotal: parseFloat(document.getElementById('monthlyTotal').textContent.replace(/,/g, '')),
+            annualTotal: parseFloat(document.getElementById('annualTotal').textContent.replace(/,/g, '')),
+            system: document.getElementById('selectedSystem').textContent,
+            plan: document.getElementById('selectedPlan').textContent,
+            breakdown: Array.from(document.getElementById('costBreakdown').children).map(li => li.textContent),
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        // Add system-specific details
+        switch(quote.systemType) {
+            case 'healthcare':
+                quote.details = {
+                    plan: document.getElementById('healthcarePlan').value,
+                    size: document.getElementById('healthcareSize').value
+                };
+                break;
+            case 'event':
+                quote.details = {
+                    attendees: document.getElementById('eventAttendees').value,
+                    duration: document.getElementById('eventDuration').value,
+                    extraAttendees: parseInt(document.getElementById('extraAttendees').value) || 0
+                };
+                break;
+            case 'supply':
+                quote.details = {
+                    components: ['tms', 'wms', 'ofm', 'portal', 'admin'].reduce((acc, component) => {
+                        if (document.getElementById(`${component}Check`).checked) {
+                            acc[component] = document.getElementById(`${component}Capacity`).value;
+                        }
+                        return acc;
+                    }, {}),
+                    additionalUsers: parseInt(document.getElementById('additionalUsers').value) || 0,
+                    premiumSupport: document.getElementById('premiumSupport').checked
+                };
+                break;
+        }
+
+        // Save to Firestore and generate PDF
+        db.collection('quotes').add(quote)
+            .then((docRef) => {
+                // Add the document ID as the quote serial
+                const quoteSerial = docRef.id;
+                db.collection('quotes').doc(docRef.id).update({
+                    quoteSerial: quoteSerial
+                }).then(() => {
+                    quote.quoteSerial = quoteSerial;
+                    generatePDF(quote);
+                    document.getElementById("confirmationMessage").textContent = 
+                        `🎉 Congratulations! Your quote (ID: ${quoteSerial}) has been saved. We will contact you via email soon.`;
+                    document.getElementById("confirmationMessage").style.display = "block";
+                });
+            })
+            .catch(error => {
+                console.error('Error saving quote: ', error);
+                alert('Error saving quote. Please try again.');
+            });
+    }
+
+    function generatePDF(quote) {
+        // Ensure jsPDF is properly loaded
+        if (typeof window.jspdf === 'undefined') {
+            console.error('jsPDF is not loaded');
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Set initial y position
+        let yPos = 20;
+
+        // Helper function to add text and increment y position
+        function addText(text, fontSize = 12, isBold = false) {
+            doc.setFontSize(fontSize);
+            doc.setFont("helvetica", isBold ? "bold" : "normal");
+            doc.text(text, 20, yPos);
+            yPos += fontSize/2 + 5;
+        }
+
+        // Header
+        addText("SaaS Quote Summary", 20, true);
+        yPos += 10; // Extra spacing after header
+
+        // Quote details
+        addText(`Quote Serial: ${quote.quoteSerial}`);
+        addText(`Date: ${new Date().toLocaleDateString()}`);
+        yPos += 5;
+
+        // Customer information
+        addText("Customer Information", 14, true);
+        addText(`Name: ${quote.customerName}`);
+        addText(`Email: ${quote.customerEmail}`);
+        addText(`Phone: ${quote.customerPhone}`);
+        yPos += 5;
+
+        // System details
+        addText("System Details", 14, true);
+        addText(`Selected System: ${quote.system}`);
+        addText(`Plan/Configuration: ${quote.plan}`);
+        yPos += 5;
+
+        // Cost breakdown
+        addText("Cost Breakdown", 14, true);
+        quote.breakdown.forEach(item => {
+            addText(`• ${item}`);
+        });
+        yPos += 5;
+
+        // Totals
+        addText("Total Cost", 14, true);
+        addText(`Monthly Total: R${quote.monthlyTotal.toLocaleString()}`);
+        addText(`Annual Total: R${quote.annualTotal.toLocaleString()}`);
+
+        // Save the PDF
+        try {
+            doc.save(`Quote_${quote.quoteSerial}.pdf`);
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            alert('Error generating PDF. Please try again.');
+        }
+    }
+
         function toggleCapacity(component) {
             const checkbox = document.getElementById(component + 'Check');
             const select = document.getElementById(component + 'Capacity');
             select.disabled = !checkbox.checked;
             calculateTotal();
         }
-
+ function updateContactInfo() {
+            document.getElementById('displayCustomerName').textContent = document.getElementById('customerName').value || 'N/A';
+            document.getElementById('displayCustomerEmail').textContent = document.getElementById('customerEmail').value || 'N/A';
+            document.getElementById('displayCustomerPhone').textContent = document.getElementById('customerPhone').value || 'N/A';
+            document.getElementById('displayCustomerNotes').textContent = document.getElementById('customerNotes').value || 'N/A';
+        }
         function calculateTotal() {
             let monthlyTotal = 0;
             const systemType = document.getElementById('systemType').value;
+            let breakdown = [];
 
             if (systemType === 'healthcare') {
-                monthlyTotal = calculateHealthcareTotal();
-            } else if (systemType === 'event') {
-                monthlyTotal = calculateEventTotal();
-            } else if (systemType === 'supply') {
-                monthlyTotal = calculateSupplyChainTotal();
+                const plan = document.getElementById('healthcarePlan').value;
+                const size = document.getElementById('healthcareSize').value;
+                const pricing = {
+                    base: { private: 2500, small: 5000, medium: 10000, large: 20000 },
+                    standard: { private: 5000, small: 10000, medium: 20000, large: 30000 },
+                    premium: { private: 10000, small: 20000, medium: 30000, large: 40000 },
+                    enterprise: { private: 50000, small: 75000, medium: 100000, large: 150000 }
+                };
+                monthlyTotal = pricing[plan][size];
+                breakdown.push(`${plan} Plan (${size}): R${monthlyTotal}`);
+                document.getElementById('selectedPlan').textContent = `${plan} Plan (${size})`;
             }
 
+            if (systemType === 'supply') {
+                ['tms', 'wms', 'ofm', 'portal', 'admin'].forEach(component => {
+                    if (document.getElementById(`${component}Check`).checked) {
+                        const capacity = document.getElementById(`${component}Capacity`).value;
+                        const pricing = {
+                            tms: { small: 15000, medium: 25000, large: 45000 },
+                            wms: { small: 18000, medium: 30000, large: 55000 },
+                            ofm: { basic: 8000, standard: 15000, enterprise: 25000 },
+                            portal: { basic: 5000, professional: 12000, enterprise: 20000 },
+                            admin: { basic: 4000, professional: 8000, enterprise: 15000 }
+                        };
+                        let cost = pricing[component][capacity];
+                        monthlyTotal += cost;
+                        breakdown.push(`${component.toUpperCase()} (${capacity}): R${cost}`);
+                    }
+                });
+                document.getElementById('selectedPlan').textContent = 'Selected Components';
+            }
+
+            document.getElementById('selectedSystem').textContent = systemType;
+            document.getElementById('costBreakdown').innerHTML = breakdown.map(item => `<li>${item}</li>`).join('');
             document.getElementById('monthlyTotal').textContent = monthlyTotal.toLocaleString();
             document.getElementById('annualTotal').textContent = (monthlyTotal * 12).toLocaleString();
         }

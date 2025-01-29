@@ -65,7 +65,7 @@
 
     <button id="confirmButton">Generate Quote & Send</button>
     <script>
-        const pricingModel = {
+       const pricingModel = {
     webApp: {
         scopes: {
             "Small Website (5-10 Pages)": { basePrice: 15000, description: "Perfect for small businesses or personal projects" },
@@ -73,11 +73,14 @@
             "Large Website (21-50 Pages)": { basePrice: 40000, description: "Complex sites with extensive content and functionality" }
         },
         functionalities: {
-            "User Login": 2000,
-            "Payment System": 5000,
-            "Contact Form": 1500,
-            "Image Gallery": 2500,
-            "Live Chat": 3000
+            "Responsive Design": 4000,
+            "Performance Optimization": 5000,
+            "SEO-friendly Architecture": 4500,
+            "Security Implementation": 6000,
+            "Accessibility Compliance (WCAG)": 5000,
+            "User Experience (UX) Optimization": 7000,
+            "Payment Gateway Integration": 8000, // Stripe, PayPal, Flutterwave, etc.
+            "E-commerce Functionality": 10000 // Cart, checkout, inventory, product management
         },
         userScale: {
             "Up to 100 Users": 1.0,
@@ -92,11 +95,14 @@
             "Complex App (8+ Screens)": { basePrice: 50000, description: "Advanced app with many features and interactions" }
         },
         functionalities: {
-            "Maps/Location": 3000,
-            "Push Notifications": 2500,
-            "User Profiles": 2000,
-            "Offline Mode": 4000,
-            "Social Sharing": 1500
+            "Platform-specific UI/UX": 5000,
+            "High Performance Optimization": 6000,
+            "Offline Mode & Data Sync": 7000,
+            "Push Notifications": 5000,
+            "Secure Data Storage": 8000,
+            "App Store Optimization (ASO)": 4000,
+            "Mobile Payments (In-App)": 9000, // Apple Pay, Google Pay, MPesa, etc.
+            "E-commerce & Marketplace": 12000 // Product listing, cart, checkout, tracking
         },
         userScale: {
             "Up to 500 Users": 1.0,
@@ -111,11 +117,14 @@
             "Enterprise Hybrid": { basePrice: 60000, description: "Complex enterprise-level hybrid solution" }
         },
         functionalities: {
-            "Cross-Platform UI": 3000,
-            "Native Features Integration": 4000,
-            "Offline Sync": 3500,
-            "Push Notifications": 2500,
-            "Analytics Integration": 2000
+            "Cross-platform Optimization": 5000,
+            "Native Feature Integration": 7000,
+            "Performance Enhancement": 6000,
+            "Push Notification System": 5000,
+            "Secure API Communication": 8000,
+            "Background Sync & Offline Data": 7500,
+            "Mobile Payment & Subscriptions": 10000, // Secure transactions for hybrid apps
+            "E-commerce & Product Listings": 12000 // Multi-vendor, single store, checkout
         },
         userScale: {
             "Up to 1000 Users": 1.0,
@@ -123,23 +132,26 @@
             "10000+ Users": 2.0
         }
     },
-    uiux: {
+    saas: {
         scopes: {
-            "Basic Design Package": { basePrice: 10000, description: "Simple design for small projects" },
-            "Comprehensive Design Package": { basePrice: 25000, description: "Detailed design with multiple iterations" },
-            "Premium Design Experience": { basePrice: 40000, description: "High-end design with extensive research and refinement" }
+            "Basic SaaS Platform": { basePrice: 30000, description: "Entry-level SaaS with core functionalities" },
+            "Advanced SaaS Solution": { basePrice: 60000, description: "Feature-rich SaaS with multi-tenancy and integrations" },
+            "Enterprise SaaS System": { basePrice: 100000, description: "Scalable enterprise-grade SaaS platform" }
         },
         functionalities: {
-            "Brand Identity": 3000,
-            "User Research": 4000,
-            "Wireframing": 2500,
-            "Prototype Testing": 3500,
-            "Design System": 5000
+            "Multi-Tenancy Architecture": 10000,
+            "Subscription & Billing System": 8000,
+            "API Integration & Extensibility": 7000,
+            "Analytics & Monitoring": 9000,
+            "Automated Deployment (CI/CD)": 8000,
+            "Data Backup & Disaster Recovery": 10000,
+            "Secure Online Payments": 12000, // Recurring billing, invoice management
+            "SaaS E-commerce & Monetization": 15000 // SaaS store, pricing tiers, checkout
         },
         userScale: {
-            "Small Project": 1.0,
-            "Medium Project": 1.5,
-            "Large Enterprise Project": 2.0
+            "Up to 1000 Users": 1.0,
+            "1000-10000 Users": 1.5,
+            "10000+ Users": 2.0
         }
     },
     wordpress: {
@@ -149,16 +161,41 @@
             "E-commerce WordPress Site": { basePrice: 35000, description: "Full-featured online store" }
         },
         functionalities: {
-            "E-commerce Integration": 3000,
-            "Custom Theme": 2500,
-            "SEO Optimization": 2000,
-            "Security Plugin": 1500,
-            "Membership Features": 2000
+            "Custom Theme Development": 5000,
+            "E-commerce Setup": 7000,
+            "SEO & Performance Optimization": 6000,
+            "Security & Backup Solutions": 5000,
+            "Membership & Subscription Features": 8000,
+            "Multi-language & Localization": 7000,
+            "WooCommerce & Payment Integration": 9000, // WooCommerce, Stripe, Paystack
+            "Advanced E-commerce Features": 11000 // Multi-vendor, order tracking, analytics
         },
         userScale: {
             "Up to 100 Users": 1.0,
             "100-1000 Users": 1.5,
             "1000-10000 Users": 2.0
+        }
+    },
+    uiux: {
+        scopes: {
+            "Basic Design Package": { basePrice: 10000, description: "Simple design for small projects" },
+            "Comprehensive Design Package": { basePrice: 25000, description: "Detailed design with multiple iterations" },
+            "Premium Design Experience": { basePrice: 40000, description: "High-end design with extensive research and refinement" }
+        },
+        functionalities: {
+            "User Research & Persona Development": 7000,
+            "Wireframing & Prototyping": 6000,
+            "Interactive UI & Animations": 8000,
+            "Dark Mode & Theming": 5000,
+            "Accessibility Optimization (WCAG)": 7000,
+            "Usability Testing & Iteration": 9000,
+            "E-commerce UX/UI Optimization": 10000, // Conversion-focused design for sales
+            "Payment UI/UX Design": 8000 // Seamless checkout, intuitive forms
+        },
+        userScale: {
+            "Small Project": 1.0,
+            "Medium Project": 1.5,
+            "Large Enterprise Project": 2.0
         }
     },
     logo: {
@@ -168,11 +205,13 @@
             "Premium Brand Identity": { basePrice: 3000, description: "Complete brand identity package" }
         },
         functionalities: {
-            "Multiple Concepts": 500,
-            "Vector Files": 300,
-            "Brand Guidelines": 800,
-            "Social Media Kit": 500,
-            "Stationery Design": 700
+            "Custom Typography & Lettering": 1000,
+            "Illustrated & Mascot Logos": 1500,
+            "Logo Animation (GIF/Video)": 2000,
+            "Brand Guidelines & Identity": 3000,
+            "Marketing Collateral Design": 4000,
+            "E-commerce Branding Assets": 5000, // Product packaging, banners, storefront logo
+            "Secure Payment Logo Design": 2500 // Trusted payment security badges
         },
         userScale: {
             "Basic License": 1.0,
@@ -181,6 +220,7 @@
         }
     }
 };
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const projectTypeGrid = document.getElementById('projectTypeGrid');

@@ -115,3 +115,16 @@
     color: var(--dark-bg);
     transform: translateY(-2px);
 }
+
+.tech-pill[href] {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.tech-pill[href]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
