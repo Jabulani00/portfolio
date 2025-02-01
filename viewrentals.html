@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Rental Quotes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-bg: #121212;
+            --dark-card: #1E1E1E;
+            --text-color: #E0E0E0;
+            --accent-color: #e74c3c;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .glassmorphic-card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            transition: all var(--transition-speed) ease;
+            cursor: pointer;
+        }
+
+        .glassmorphic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .quote-item {
+            margin-bottom: 20px;
+        }
+
+        .quote-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .quote-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            color: var(--primary-color);
+        }
+
+        .quote-details p {
+            margin: 5px 0;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+        }
+
+        .modal-content {
+            background-color: var(--dark-card);
+            color: var(--text-color);
+        }
+
+        .btn-status {
+            margin: 5px;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script>
+       // Firebase initialization remains the same
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyA-dWJYv1m5EoHT2AkcOUzrerIWy4biGd4",
+    authDomain: "jabulanigwalaportfolio.firebaseapp.com",
+    projectId: "jabulanigwalaportfolio",
+    storageBucket: "jabulanigwalaportfolio.firebasestorage.app",
+    messagingSenderId: "961267386634",
+    appId: "1:961267386634:web:0d466c481eb2d36ee892f3"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Global variable for current filter
+let currentFilter = 'all';
+
+// Status color mapping
+function getStatusColor(status) {
+    const colors = {
+        'new': '#3498db',
+        'in-contact': '#f1c40f',
+        'deal-agreed': '#2ecc71',
+        'in-progress': '#9b59b6',
+        'completed': '#27ae60',
+        'declined': '#e74c3c'
+    };
+    return colors[status] || '#95a5a6';
+}
+
+// Update quote status
+async function updateQuoteStatus(docId, newStatus) {
+    try {
+        if (newStatus === 'declined') {
+            await db.collection('rentalQuotes').doc(docId).delete();
+            await loadQuotes(currentFilter);
+            return;
+        }
+        
+        await db.collection('rentalQuotes').doc(docId).update({
+            status: newStatus,
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        await loadQuotes(currentFilter);
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById('quoteModal'));
+        modal.hide();
+    } catch (error) {
+        console.error('Error updating status:', error);
+        alert('Failed to update status. Please try again.');
+    }
+}
+
+// Load quotes with filter
+async function loadQuotes(filter = 'all') {
+    console.log('Loading quotes with filter:', filter);
+    
+    const quotesContainer = document.getElementById('quotesContainer');
+    if (!quotesContainer) {
+        console.error('Element #quotesContainer not found');
+        return;
+    }
+
+    quotesContainer.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin fa-3x"></i></div>';
+
+    try {
+        let query = db.collection('rentalQuotes');
+
+        if (filter !== 'all') {
+            query = query.where('status', '==', filter);
+        }
+
+        query = query.orderBy('timestamp', 'desc');
+
+        const snapshot = await query.get({ source: 'server' });
+        console.log('Firestore snapshot size:', snapshot.size);
+
+        quotesContainer.innerHTML = '';
+
+        if (snapshot.empty) {
+            quotesContainer.innerHTML = `<p class="text-center">No quotes found for status: ${filter}</p>`;
+            return;
+        }
+
+        snapshot.forEach(doc => {
+            const quote = doc.data();
+            const quoteCard = document.createElement('div');
+            quoteCard.className = 'card glassmorphic-card quote-item';
+            quoteCard.onclick = () => showQuoteDetails(doc.id, quote);
+
+            const statusColor = getStatusColor(quote.status || 'new');
+
+            quoteCard.innerHTML = `
+                <div class="quote-card">
+                    <div class="quote-icon">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="quote-details">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title text-primary mb-2">${quote.quoteSerial}</h5>
+                            <span class="status-badge" style="background-color: ${statusColor}">
+                                ${quote.status || 'New'}
+                            </span>
+                        </div>
+                        <p><strong>Customer:</strong> ${quote.customerName}</p>
+                        <p><strong>System Type:</strong> ${quote.systemType}</p>
+                        <p><strong>Monthly Total:</strong> $${quote.monthlyTotal.toFixed(2)}</p>
+                    </div>
+                </div>`;
+            quotesContainer.appendChild(quoteCard);
+        });
+    } catch (error) {
+        console.error('Error loading quotes:', error);
+        quotesContainer.innerHTML = '<p class="text-danger text-center">Failed to load quotes. Please try again later.</p>';
+    }
+}
+
+// Show quote details in modal
+function showQuoteDetails(docId, quote) {
+    const modal = new bootstrap.Modal(document.getElementById('quoteModal'));
+    const modalBody = document.getElementById('modalBody');
+    const modalFooter = document.getElementById('modalFooter');
+    
+    modalBody.innerHTML = `
+        <h5>Quote Details</h5>
+        <p><strong>Quote Serial:</strong> ${quote.quoteSerial}</p>
+        <p><strong>Customer Name:</strong> ${quote.customerName}</p>
+        <p><strong>Email:</strong> ${quote.customerEmail}</p>
+        <p><strong>Phone:</strong> ${quote.customerPhone}</p>
+        <p><strong>System Type:</strong> ${quote.systemType}</p>
+        <p><strong>Monthly Total:</strong> $${quote.monthlyTotal.toFixed(2)}</p>
+        <p><strong>Annual Total:</strong> $${quote.annualTotal.toFixed(2)}</p>
+        <p><strong>Notes:</strong> ${quote.customerNotes || 'N/A'}</p>
+        <p><strong>Current Status:</strong> ${quote.status || 'New'}</p>
+    `;
+
+    modalFooter.innerHTML = '';
+    
+    const currentStatus = quote.status || 'new';
+    const statusButtons = {
+        'new': ['in-contact'],
+        'in-contact': ['deal-agreed', 'declined'],
+        'deal-agreed': ['in-progress'],
+        'in-progress': ['completed'],
+        'completed': []
+    };
+
+    if (statusButtons[currentStatus]) {
+        statusButtons[currentStatus].forEach(status => {
+            const btn = document.createElement('button');
+            btn.className = `btn btn-status ${status === 'declined' ? 'btn-danger' : 'btn-primary'}`;
+            btn.textContent = status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ');
+            btn.onclick = () => updateQuoteStatus(docId, status);
+            modalFooter.appendChild(btn);
+        });
+    }
+
+    modal.show();
+}
+
+// Set active filter
+function setFilter(filter) {
+    console.log('Setting filter to:', filter);
+    currentFilter = filter;
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline-primary');
+    });
+    
+    const activeButton = document.getElementById(`filter-${filter}`);
+    if (activeButton) {
+        activeButton.classList.remove('btn-outline-primary');
+        activeButton.classList.add('btn-primary');
+    }
+    
+    loadQuotes(filter);
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadQuotes('all');
+});
+        function getStatusColor(status) {
+            const colors = {
+                'new': '#3498db',
+                'in-contact': '#f1c40f',
+                'deal-agreed': '#2ecc71',
+                'in-progress': '#9b59b6',
+                'completed': '#27ae60',
+                'declined': '#e74c3c'
+            };
+            return colors[status] || '#95a5a6';
+        }
+
+        function showQuoteDetails(docId, quote) {
+            const modal = new bootstrap.Modal(document.getElementById('quoteModal'));
+            const modalBody = document.getElementById('modalBody');
+            const modalFooter = document.getElementById('modalFooter');
+            
+            modalBody.innerHTML = `
+                <h5>Quote Details</h5>
+                <p><strong>Quote Serial:</strong> ${quote.quoteSerial}</p>
+                <p><strong>Customer Name:</strong> ${quote.customerName}</p>
+                <p><strong>Email:</strong> ${quote.customerEmail}</p>
+                <p><strong>Phone:</strong> ${quote.customerPhone}</p>
+                <p><strong>System Type:</strong> ${quote.systemType}</p>
+                <p><strong>Monthly Total:</strong> $${quote.monthlyTotal.toFixed(2)}</p>
+                <p><strong>Annual Total:</strong> $${quote.annualTotal.toFixed(2)}</p>
+                <p><strong>Notes:</strong> ${quote.customerNotes || 'N/A'}</p>
+                <p><strong>Current Status:</strong> ${quote.status || 'New'}</p>
+            `;
+
+            modalFooter.innerHTML = '';
+            
+            const currentStatus = quote.status || 'new';
+            const statusButtons = {
+                'new': ['in-contact'],
+                'in-contact': ['deal-agreed', 'declined'],
+                'deal-agreed': ['in-progress'],
+                'in-progress': ['completed'],
+                'completed': []
+            };
+
+            if (statusButtons[currentStatus]) {
+                statusButtons[currentStatus].forEach(status => {
+                    const btn = document.createElement('button');
+                    btn.className = `btn btn-status ${status === 'declined' ? 'btn-danger' : 'btn-primary'}`;
+                    btn.textContent = status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ');
+                    btn.onclick = () => updateQuoteStatus(docId, status);
+                    modalFooter.appendChild(btn);
+                });
+            }
+
+            modal.show();
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-primary');
+            });
+            document.getElementById(`filter-${filter}`).classList.remove('btn-outline-primary');
+            document.getElementById(`filter-${filter}`).classList.add('btn-primary');
+            loadQuotes();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadQuotes();
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="section-title">Rental Quotes</h1>
+        
+        <div class="filters">
+            <div class="d-flex justify-content-center flex-wrap gap-2">
+                <button id="filter-all" class="btn btn-primary filter-btn" onclick="setFilter('all')">All</button>
+                <button id="filter-new" class="btn btn-outline-primary filter-btn" onclick="setFilter('new')">New</button>
+                <button id="filter-in-contact" class="btn btn-outline-primary filter-btn" onclick="setFilter('in-contact')">In Contact</button>
+                <button id="filter-deal-agreed" class="btn btn-outline-primary filter-btn" onclick="setFilter('deal-agreed')">Deal Agreed</button>
+                <button id="filter-in-progress" class="btn btn-outline-primary filter-btn" onclick="setFilter('in-progress')">In Progress</button>
+                <button id="filter-completed" class="btn btn-outline-primary filter-btn" onclick="setFilter('completed')">Completed</button>
+            </div>
+        </div>
+
+        <div id="quotesContainer" class="row g-4">
+            <!-- Quotes will be displayed here -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="quoteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Quote Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Quote details will be displayed here -->
+                </div>
+                <div class="modal-footer" id="modalFooter">
+                    <!-- Status update buttons will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

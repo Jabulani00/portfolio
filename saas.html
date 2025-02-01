@@ -172,36 +172,220 @@
     <script>
        
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyA-dWJYv1m5EoHT2AkcOUzrerIWy4biGd4",
-            authDomain: "jabulanigwalaportfolio.firebaseapp.com",
-            projectId: "jabulanigwalaportfolio",
-            storageBucket: "jabulanigwalaportfolio.firebasestorage.app",
-            messagingSenderId: "961267386634",
-            appId: "1:961267386634:web:0d466c481eb2d36ee892f3"
-        };
-        
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+       // Firebase configuration and initialization
+const firebaseConfig = {
+    apiKey: "AIzaSyA-dWJYv1m5EoHT2AkcOUzrerIWy4biGd4",
+    authDomain: "jabulanigwalaportfolio.firebaseapp.com",
+    projectId: "jabulanigwalaportfolio",
+    storageBucket: "jabulanigwalaportfolio.firebasestorage.app",
+    messagingSenderId: "961267386634",
+    appId: "1:961267386634:web:0d466c481eb2d36ee892f3"
+};
 
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-        function toggleSystemOptions() {
-            const systemType = document.getElementById('systemType').value;
+// System display functions
+function toggleSystemOptions() {
+    const systemType = document.getElementById('systemType').value;
+    
+    // Hide all system options first
+    document.getElementById('healthcareOptions').classList.add('hidden');
+    document.getElementById('eventOptions').classList.add('hidden');
+    document.getElementById('supplyOptions').classList.add('hidden');
+    
+    // Show selected system options
+    if (systemType) {
+        document.getElementById(systemType + 'Options').classList.remove('hidden');
+    }
+    
+    calculateTotal();
+}
+
+function updateContactInfo() {
+    document.getElementById('displayCustomerName').textContent = document.getElementById('customerName').value || 'N/A';
+    document.getElementById('displayCustomerEmail').textContent = document.getElementById('customerEmail').value || 'N/A';
+    document.getElementById('displayCustomerPhone').textContent = document.getElementById('customerPhone').value || 'N/A';
+    document.getElementById('displayCustomerNotes').textContent = document.getElementById('customerNotes').value || 'N/A';
+}
+
+// Main calculation functions
+function calculateTotal() {
+    let monthlyTotal = 0;
+    const systemType = document.getElementById('systemType').value;
+    let breakdown = [];
+
+    switch(systemType) {
+        case 'healthcare':
+            monthlyTotal = calculateHealthcareTotal();
+            const plan = document.getElementById('healthcarePlan').value;
+            const size = document.getElementById('healthcareSize').value;
+            breakdown.push(`Healthcare ${plan} Plan (${size}): R${monthlyTotal.toLocaleString()}`);
+            document.getElementById('selectedPlan').textContent = `${plan} Plan (${size})`;
+            break;
+
+        case 'event':
+            monthlyTotal = calculateEventTotal();
+            const attendees = document.getElementById('eventAttendees').value;
+            const duration = document.getElementById('eventDuration').value;
+            breakdown.push(`Event Management (${attendees}, ${duration}): R${monthlyTotal.toLocaleString()}`);
             
-            // Hide all system options first
-            document.getElementById('healthcareOptions').classList.add('hidden');
-            document.getElementById('eventOptions').classList.add('hidden');
-            document.getElementById('supplyOptions').classList.add('hidden');
-            
-            // Show selected system options
-            if (systemType) {
-                document.getElementById(systemType + 'Options').classList.remove('hidden');
+            const extraAttendeesInput = document.getElementById('extraAttendees');
+            if (!extraAttendeesInput.disabled && extraAttendeesInput.value > 0) {
+                const extraCost = Math.ceil(extraAttendeesInput.value / 150) * 1000;
+                monthlyTotal += extraCost;
+                breakdown.push(`Additional Attendees Cost: R${extraCost.toLocaleString()}`);
             }
             
-            calculateTotal();
-        }
+            document.getElementById('selectedPlan').textContent = `${attendees} attendees, ${duration} duration`;
+            break;
 
-        function validateForm() {
+        case 'supply':
+            monthlyTotal = calculateSupplyChainTotal();
+            
+            ['tms', 'wms', 'ofm', 'portal', 'admin'].forEach(component => {
+                if (document.getElementById(`${component}Check`).checked) {
+                    const capacity = document.getElementById(`${component}Capacity`).value;
+                    const componentCost = getComponentCost(component, capacity);
+                    breakdown.push(`${component.toUpperCase()} (${capacity}): R${componentCost.toLocaleString()}`);
+                }
+            });
+
+            const additionalUsers = parseInt(document.getElementById('additionalUsers').value) || 0;
+            if (additionalUsers > 0) {
+                const usersCost = additionalUsers * 500;
+                breakdown.push(`Additional Users (${additionalUsers}): R${usersCost.toLocaleString()}`);
+            }
+
+            if (document.getElementById('premiumSupport').checked) {
+                breakdown.push(`Premium Support: R5,000`);
+            }
+
+            document.getElementById('selectedPlan').textContent = 'Custom Supply Chain Configuration';
+            break;
+    }
+
+    document.getElementById('selectedSystem').textContent = getSystemDisplayName(systemType);
+    document.getElementById('costBreakdown').innerHTML = breakdown.map(item => `<li>${item}</li>`).join('');
+    document.getElementById('monthlyTotal').textContent = monthlyTotal.toLocaleString();
+    document.getElementById('annualTotal').textContent = (monthlyTotal * 12).toLocaleString();
+}
+
+function calculateHealthcareTotal() {
+    const plan = document.getElementById('healthcarePlan').value;
+    const size = document.getElementById('healthcareSize').value;
+    
+    const pricing = {
+        base: {
+            private: 2500,
+            small: 5000,
+            medium: 10000,
+            large: 20000
+        },
+        standard: {
+            private: 5000,
+            small: 10000,
+            medium: 20000,
+            large: 30000
+        },
+        premium: {
+            private: 10000,
+            small: 20000,
+            medium: 30000,
+            large: 40000
+        },
+        enterprise: {
+            private: 50000,
+            small: 75000,
+            medium: 100000,
+            large: 150000
+        }
+    };
+
+    return pricing[plan][size];
+}
+
+function calculateEventTotal() {
+    const attendeeTier = document.getElementById('eventAttendees').value;
+    const duration = document.getElementById('eventDuration').value;
+    
+    const attendeePricing = {
+        'tier1': 3000,    // 1-100
+        'tier2': 7500,    // 20-250
+        'tier3': 15000,   // 50-400
+        'tier4': 25000,   // 100-1000
+        'tier5': 40000    // 1000+
+    };
+
+    const durationMultipliers = {
+        'daily': 1,
+        'weekly': 3.5,
+        'monthly': 12,
+        'quarterly': 30,
+        'annually': 100
+    };
+
+    let basePrice = attendeePricing[attendeeTier];
+    let total = basePrice * durationMultipliers[duration];
+
+    const extraAttendeesDiv = document.getElementById('extraAttendeesDiv');
+    extraAttendeesDiv.classList.toggle('hidden', attendeeTier !== 'tier5');
+    document.getElementById('extraAttendees').disabled = attendeeTier !== 'tier5';
+
+    return total;
+}
+
+function calculateSupplyChainTotal() {
+    let total = 0;
+
+    // Calculate component costs
+    ['tms', 'wms', 'ofm', 'portal', 'admin'].forEach(component => {
+        if (document.getElementById(`${component}Check`).checked) {
+            const capacity = document.getElementById(`${component}Capacity`).value;
+            total += getComponentCost(component, capacity);
+        }
+    });
+
+    // Add additional users cost
+    const additionalUsers = parseInt(document.getElementById('additionalUsers').value) || 0;
+    total += additionalUsers * 500;
+
+    // Add premium support cost
+    if (document.getElementById('premiumSupport').checked) {
+        total += 5000;
+    }
+
+    return total;
+}
+
+function getComponentCost(component, capacity) {
+    const pricing = {
+        tms: { small: 15000, medium: 25000, large: 45000 },
+        wms: { small: 18000, medium: 30000, large: 55000 },
+        ofm: { basic: 8000, standard: 15000, enterprise: 25000 },
+        portal: { basic: 5000, professional: 12000, enterprise: 20000 },
+        admin: { basic: 4000, professional: 8000, enterprise: 15000 }
+    };
+    return pricing[component][capacity] || 0;
+}
+
+function getSystemDisplayName(systemType) {
+    const names = {
+        'healthcare': 'Digital Healthcare Management Suite',
+        'event': 'Enterprise Event Management Solution',
+        'supply': 'Intelligent Supply Chain Management System'
+    };
+    return names[systemType] || 'Not Selected';
+}
+
+function toggleCapacity(component) {
+    const checkbox = document.getElementById(`${component}Check`);
+    const select = document.getElementById(`${component}Capacity`);
+    select.disabled = !checkbox.checked;
+    calculateTotal();
+}
+
+function validateForm() {
     const name = document.getElementById('customerName').value.trim();
     const email = document.getElementById('customerEmail').value.trim();
     
@@ -213,369 +397,210 @@
     return true;
 }
 
-function generateQuoteSerial() {
-    return "Q-" + Math.floor(Math.random() * 1000000);
+function getSystemAbbreviation(systemType) {
+    const abbreviations = {
+        'healthcare': 'HC',
+        'event': 'EV',
+        'supply': 'SC'
+    };
+    return abbreviations[systemType] || 'XX';
 }
+
+function generateQuoteId(systemType) {
+    // Generate a random 2-digit number
+    const randomNum = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+    // Get system abbreviation
+    const sysAbbr = getSystemAbbreviation(systemType);
+    // Combine to create quote ID
+    return `LQ${sysAbbr}${randomNum}`;
+}
+
+// First, add this CSS to your stylesheet
+const styleSheet = document.createElement("style");
+styleSheet.textContent = `
+/* Full Page Background Overlay */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background */
+    backdrop-filter: blur(4px); /* Subtle blur effect */
+    z-index: 999; /* Ensure it stays above other content */
+}
+
+.modal-overlay.show {
+    display: flex; /* Show the overlay when needed */
+}
+
+/* Glassmorphic Success Modal */
+.success-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed positioning for centering */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for perfect centering */
+    background: linear-gradient(145deg, var(--dark-card), #252525); /* Gradient background */
+    padding: 2.5rem; /* Spacing inside the modal */
+    border-radius: 12px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    box-shadow: 0 8px 32px rgba(52, 152, 219, 0.2); /* Shadow for depth */
+    max-width: 450px; /* Maximum width */
+    width: 90%; /* Responsive width */
+    text-align: center; /* Center-align text */
+    z-index: 1000; /* Ensure it stays above the overlay */
+    animation: slideIn 0.4s cubic-bezier(0.19, 1, 0.22, 1); /* Smooth entrance animation */
+    color: var(--text-color); /* Text color */
+}
+
+.modal-overlay {
+    display: none; /* Hidden by default */
+}
+
+.modal-overlay.show {
+    display: flex; /* Show the overlay */
+}
+
+.success-modal {
+    display: none; /* Hidden by default */
+}
+
+.success-modal.show {
+    display: block; /* Show the modal */
+}
+
+/* Header */
+.success-header {
+    background: linear-gradient(135deg, var(--primary-color), #5DADE2); /* Gradient text */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem; /* Space below the header */
+    font-size: 1.6rem; /* Font size */
+    font-weight: 700; /* Bold font weight */
+}
+
+/* Icon (Checkmark) */
+.checkmark {
+    color: var(--secondary-color); /* Icon color */
+    font-size: 2.5rem; /* Icon size */
+    margin-bottom: 1rem; /* Space below the icon */
+    animation: pulse 2s infinite; /* Pulse animation for emphasis */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); } /* Start at normal size */
+    50% { transform: scale(1.1); } /* Grow slightly */
+    100% { transform: scale(1); } /* Return to normal size */
+}
+
+/* Quote Token */
+.quote-token {
+    background: rgba(52, 152, 219, 0.15); /* Subtle blue background */
+    padding: 1rem; /* Padding inside the token */
+    border-radius: 8px; /* Rounded corners */
+    color: var(--primary-color); /* Text color */
+    font-size: 1.3rem; /* Font size */
+    font-weight: bold; /* Bold font weight */
+    margin: 1.2rem 0; /* Space above and below */
+    border: 1px solid rgba(52, 152, 219, 0.3); /* Subtle border */
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.1); /* Shadow for depth */
+}
+
+/* VIP Badge */
+.vip-badge {
+    background: linear-gradient(135deg, #f1c40f, #f39c12); /* Gradient background */
+    color: #000; /* Text color */
+    padding: 0.3rem 1rem; /* Padding inside the badge */
+    border-radius: 20px; /* Rounded corners */
+    font-size: 0.8rem; /* Font size */
+    font-weight: bold; /* Bold font weight */
+    display: inline-block; /* Inline display */
+    margin-bottom: 1rem; /* Space below */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 1px; /* Letter spacing */
+}
+
+/* Success Message */
+.success-message {
+    color: var(--text-color); /* Text color */
+    line-height: 1.5; /* Line height */
+    margin: 1rem 0; /* Space above and below */
+    font-size: 1rem; /* Font size */
+}
+
+/* Priority Message */
+.priority-message {
+    color: var(--secondary-color); /* Text color */
+    font-weight: 500; /* Font weight */
+    margin-top: 0.8rem; /* Space above */
+}
+
+/* Close Button */
+.close-button {
+    background: linear-gradient(135deg, var(--primary-color), #2980b9); /* Gradient background */
+    color: white; /* Text color */
+    border: none; /* No border */
+    padding: 0.9rem 2.5rem; /* Padding inside the button */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 1rem; /* Font size */
+    font-weight: 500; /* Font weight */
+    transition: all 0.3s ease; /* Smooth transitions */
+    margin-top: 1.2rem; /* Space above */
+    text-transform: uppercase; /* Uppercase text */
+    letter-spacing: 0.5px; /* Letter spacing */
+}
+
+.close-button:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3); /* Shadow on hover */
+}
+
+/* Slide-In Animation */
+@keyframes slideIn {
+    from {
+        transform: translate(-50%, -60%); /* Start slightly above center */
+        opacity: 0; /* Fully transparent */
+    }
+    to {
+        transform: translate(-50%, -50%); /* End at exact center */
+        opacity: 1; /* Fully opaque */
+    }
+}
+`;
+document.head.appendChild(styleSheet);
+
+// Add this HTML element to your page for the success message
+const successDiv = document.createElement("div");
+successDiv.id = "successModal";
+successDiv.className = "success-modal";
+document.body.appendChild(successDiv);
+
 function saveQuote() {
-        if (!validateForm()) return;
-
-        const quote = {
-            systemType: document.getElementById('systemType').value,
-            customerName: document.getElementById('customerName').value,
-            customerEmail: document.getElementById('customerEmail').value,
-            customerPhone: document.getElementById('customerPhone').value,
-            customerNotes: document.getElementById('customerNotes').value,
-            monthlyTotal: parseFloat(document.getElementById('monthlyTotal').textContent.replace(/,/g, '')),
-            annualTotal: parseFloat(document.getElementById('annualTotal').textContent.replace(/,/g, '')),
-            system: document.getElementById('selectedSystem').textContent,
-            plan: document.getElementById('selectedPlan').textContent,
-            breakdown: Array.from(document.getElementById('costBreakdown').children).map(li => li.textContent),
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        };
-
-        // Add system-specific details
-        switch(quote.systemType) {
-            case 'healthcare':
-                quote.details = {
-                    plan: document.getElementById('healthcarePlan').value,
-                    size: document.getElementById('healthcareSize').value
-                };
-                break;
-            case 'event':
-                quote.details = {
-                    attendees: document.getElementById('eventAttendees').value,
-                    duration: document.getElementById('eventDuration').value,
-                    extraAttendees: parseInt(document.getElementById('extraAttendees').value) || 0
-                };
-                break;
-            case 'supply':
-                quote.details = {
-                    components: ['tms', 'wms', 'ofm', 'portal', 'admin'].reduce((acc, component) => {
-                        if (document.getElementById(`${component}Check`).checked) {
-                            acc[component] = document.getElementById(`${component}Capacity`).value;
-                        }
-                        return acc;
-                    }, {}),
-                    additionalUsers: parseInt(document.getElementById('additionalUsers').value) || 0,
-                    premiumSupport: document.getElementById('premiumSupport').checked
-                };
-                break;
-        }
-
-        // Save to Firestore and generate PDF
-        db.collection('quotes').add(quote)
-            .then((docRef) => {
-                // Add the document ID as the quote serial
-                const quoteSerial = docRef.id;
-                db.collection('quotes').doc(docRef.id).update({
-                    quoteSerial: quoteSerial
-                }).then(() => {
-                    quote.quoteSerial = quoteSerial;
-                    generatePDF(quote);
-                    document.getElementById("confirmationMessage").textContent = 
-                        `🎉 Congratulations! Your quote (ID: ${quoteSerial}) has been saved. We will contact you via email soon.`;
-                    document.getElementById("confirmationMessage").style.display = "block";
-                });
-            })
-            .catch(error => {
-                console.error('Error saving quote: ', error);
-                alert('Error saving quote. Please try again.');
-            });
-    }
-
-    function generatePDF(quote) {
-        // Ensure jsPDF is properly loaded
-        if (typeof window.jspdf === 'undefined') {
-            console.error('jsPDF is not loaded');
-            return;
-        }
-
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        // Set initial y position
-        let yPos = 20;
-
-        // Helper function to add text and increment y position
-        function addText(text, fontSize = 12, isBold = false) {
-            doc.setFontSize(fontSize);
-            doc.setFont("helvetica", isBold ? "bold" : "normal");
-            doc.text(text, 20, yPos);
-            yPos += fontSize/2 + 5;
-        }
-
-        // Header
-        addText("SaaS Quote Summary", 20, true);
-        yPos += 10; // Extra spacing after header
-
-        // Quote details
-        addText(`Quote Serial: ${quote.quoteSerial}`);
-        addText(`Date: ${new Date().toLocaleDateString()}`);
-        yPos += 5;
-
-        // Customer information
-        addText("Customer Information", 14, true);
-        addText(`Name: ${quote.customerName}`);
-        addText(`Email: ${quote.customerEmail}`);
-        addText(`Phone: ${quote.customerPhone}`);
-        yPos += 5;
-
-        // System details
-        addText("System Details", 14, true);
-        addText(`Selected System: ${quote.system}`);
-        addText(`Plan/Configuration: ${quote.plan}`);
-        yPos += 5;
-
-        // Cost breakdown
-        addText("Cost Breakdown", 14, true);
-        quote.breakdown.forEach(item => {
-            addText(`• ${item}`);
-        });
-        yPos += 5;
-
-        // Totals
-        addText("Total Cost", 14, true);
-        addText(`Monthly Total: R${quote.monthlyTotal.toLocaleString()}`);
-        addText(`Annual Total: R${quote.annualTotal.toLocaleString()}`);
-
-        // Save the PDF
-        try {
-            doc.save(`Quote_${quote.quoteSerial}.pdf`);
-        } catch (error) {
-            console.error('Error generating PDF:', error);
-            alert('Error generating PDF. Please try again.');
-        }
-    }
-
-        function toggleCapacity(component) {
-            const checkbox = document.getElementById(component + 'Check');
-            const select = document.getElementById(component + 'Capacity');
-            select.disabled = !checkbox.checked;
-            calculateTotal();
-        }
- function updateContactInfo() {
-            document.getElementById('displayCustomerName').textContent = document.getElementById('customerName').value || 'N/A';
-            document.getElementById('displayCustomerEmail').textContent = document.getElementById('customerEmail').value || 'N/A';
-            document.getElementById('displayCustomerPhone').textContent = document.getElementById('customerPhone').value || 'N/A';
-            document.getElementById('displayCustomerNotes').textContent = document.getElementById('customerNotes').value || 'N/A';
-        }
-        function calculateTotal() {
-            let monthlyTotal = 0;
-            const systemType = document.getElementById('systemType').value;
-            let breakdown = [];
-
-            if (systemType === 'healthcare') {
-                const plan = document.getElementById('healthcarePlan').value;
-                const size = document.getElementById('healthcareSize').value;
-                const pricing = {
-                    base: { private: 2500, small: 5000, medium: 10000, large: 20000 },
-                    standard: { private: 5000, small: 10000, medium: 20000, large: 30000 },
-                    premium: { private: 10000, small: 20000, medium: 30000, large: 40000 },
-                    enterprise: { private: 50000, small: 75000, medium: 100000, large: 150000 }
-                };
-                monthlyTotal = pricing[plan][size];
-                breakdown.push(`${plan} Plan (${size}): R${monthlyTotal}`);
-                document.getElementById('selectedPlan').textContent = `${plan} Plan (${size})`;
-            }
-
-            if (systemType === 'supply') {
-                ['tms', 'wms', 'ofm', 'portal', 'admin'].forEach(component => {
-                    if (document.getElementById(`${component}Check`).checked) {
-                        const capacity = document.getElementById(`${component}Capacity`).value;
-                        const pricing = {
-                            tms: { small: 15000, medium: 25000, large: 45000 },
-                            wms: { small: 18000, medium: 30000, large: 55000 },
-                            ofm: { basic: 8000, standard: 15000, enterprise: 25000 },
-                            portal: { basic: 5000, professional: 12000, enterprise: 20000 },
-                            admin: { basic: 4000, professional: 8000, enterprise: 15000 }
-                        };
-                        let cost = pricing[component][capacity];
-                        monthlyTotal += cost;
-                        breakdown.push(`${component.toUpperCase()} (${capacity}): R${cost}`);
-                    }
-                });
-                document.getElementById('selectedPlan').textContent = 'Selected Components';
-            }
-
-            document.getElementById('selectedSystem').textContent = systemType;
-            document.getElementById('costBreakdown').innerHTML = breakdown.map(item => `<li>${item}</li>`).join('');
-            document.getElementById('monthlyTotal').textContent = monthlyTotal.toLocaleString();
-            document.getElementById('annualTotal').textContent = (monthlyTotal * 12).toLocaleString();
-        }
-
-        function calculateHealthcareTotal() {
-            const plan = document.getElementById('healthcarePlan').value;
-            const size = document.getElementById('healthcareSize').value;
-            
-            const pricing = {
-                base: {
-                    private: 2500,
-                    small: 5000,
-                    medium: 10000,
-                    large: 20000
-                },
-                standard: {
-                    private: 5000,
-                    small: 10000,
-                    medium: 20000,
-                    large: 30000
-                },
-                premium: {
-                    private: 10000,
-                    small: 20000,
-                    medium: 30000,
-                    large: 40000
-                },
-                enterprise: {
-                    private: 50000,
-                    small: 75000,
-                    medium: 100000,
-                    large: 150000
-                }
-            };
-
-            return pricing[plan][size];
-        }
-
-        function calculateEventTotal() {
-            const attendees = document.getElementById('eventAttendees').value;
-            const duration = document.getElementById('eventDuration').value;
-            
-            const pricing = {
-                tier1: {
-                    daily: 150,
-                    weekly: 600,
-                    monthly: 1500,
-                    quarterly: 4000,
-                    annually: 15000
-                },
-                tier2: {
-                    daily: 270,
-                    weekly: 1080,
-                    monthly: 2700,
-                    quarterly: 7200,
-                    annually: 27000
-                },
-                tier3: {
-                    daily: 550,
-                    weekly: 2200,
-                    monthly: 5500,
-                    quarterly: 15000,
-                    annually: 55000
-                },
-                tier4: {
-                    daily: 1300,
-                    weekly: 5200,
-                    monthly: 13000,
-                    quarterly: 35000,
-                    annually: 130000
-                },
-                tier5: {
-                    daily: 1500,
-                    weekly: 6000,
-                    monthly: 13000,
-                    quarterly: 40500,
-                    annually: 150000
-                }
-            };
-
-            let total = pricing[attendees][duration];
-
-            if (attendees === 'tier5') {
-                const extraAttendees = document.getElementById('extraAttendees').value;
-                const extraCost = Math.ceil(extraAttendees / 150) * 1000;
-                total += extraCost;
-            }
-
-            return total;
-        }
-
-        function calculateSupplyChainTotal() {
-            let total = 0;
-
-            // TMS
-            if (document.getElementById('tmsCheck').checked) {
-                const tmsCapacity = document.getElementById('tmsCapacity').value;
-                const tmsPricing = {
-                    small: 15000,
-                    medium: 25000,
-                    large: 45000
-                };
-                total += tmsPricing[tmsCapacity];
-            }
-
-            // WMS
-            if (document.getElementById('wmsCheck').checked) {
-                const wmsCapacity = document.getElementById('wmsCapacity').value;
-                const wmsPricing = {
-                    small: 18000,
-                    medium: 30000,
-                    large: 55000
-                };
-                total += wmsPricing[wmsCapacity];
-            }
-
-            // Order Fulfillment
-            if (document.getElementById('ofmCheck').checked) {
-                const ofmCapacity = document.getElementById('ofmCapacity').value;
-                const ofmPricing = {
-                    basic: 8000,
-                    standard: 15000,
-                    enterprise: 25000
-                };
-                total += ofmPricing[ofmCapacity];
-            }
-
-            // Customer Portal
-            if (document.getElementById('portalCheck').checked) {
-                const portalCapacity = document.getElementById('portalCapacity').value;
-                const portalPricing = {
-                    basic: 5000,
-                    professional: 12000,
-                    enterprise: 20000
-                };
-                total += portalPricing[portalCapacity];
-            }
-
-            // Admin Dashboard
-            if (document.getElementById('adminCheck').checked) {
-                const adminCapacity = document.getElementById('adminCapacity').value;
-                const adminPricing = {
-                    basic: 4000,
-                    professional: 8000,
-                    enterprise: 15000
-                };
-                total += adminPricing[adminCapacity];
-            }
-
-            // Additional Users
-            const additionalUsers = document.getElementById('additionalUsers').value;
-            total += additionalUsers * 500;
-
-            // Premium Support
-            if (document.getElementById('premiumSupport').checked) {
-                total += 5000;
-            }
-
-            return total;
-        }
-
-        function saveQuote() {
     if (!validateForm()) return;
 
+    const systemType = document.getElementById('systemType').value;
+    const quoteId = generateQuoteId(systemType);
+
     const quote = {
-        systemType: document.getElementById('systemType').value,
+        quoteSerial: quoteId,
+        systemType: systemType,
         customerName: document.getElementById('customerName').value,
         customerEmail: document.getElementById('customerEmail').value,
         customerPhone: document.getElementById('customerPhone').value,
         customerNotes: document.getElementById('customerNotes').value,
         monthlyTotal: parseFloat(document.getElementById('monthlyTotal').textContent.replace(/,/g, '')),
         annualTotal: parseFloat(document.getElementById('annualTotal').textContent.replace(/,/g, '')),
+        system: document.getElementById('selectedSystem').textContent,
+        plan: document.getElementById('selectedPlan').textContent,
+        breakdown: Array.from(document.getElementById('costBreakdown').children).map(li => li.textContent),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     };
 
     // Add system-specific details
-    switch(quote.systemType) {
+    switch (quote.systemType) {
         case 'healthcare':
             quote.details = {
                 plan: document.getElementById('healthcarePlan').value,
@@ -603,17 +628,87 @@ function saveQuote() {
             break;
     }
 
-    // Save to Firestore
-    db.collection('rentalQuotes').add(quote)
-        .then((docRef) => {
-            alert('Quote saved successfully! Reference ID: ' + docRef.id);
-            // Optionally reset form here
+    // Save to Firestore with the custom ID
+    db.collection('quotes').doc(quoteId).set(quote)
+        .then(() => {
+            const successModal = document.getElementById("successModal");
+            successModal.innerHTML = `
+                <div class="checkmark">✔️</div>
+               <h2 class="success-header">Thank You, ${quote.customerName}!</h2>
+               <div class="quote-token">Quote Reference: ${quoteId}</div>
+               <div class="success-message">
+                     Your request has been successfully submitted.
+              </div>
+              <div class="vip-badge">VIP CUSTOMER</div>
+              <div class="priority-message">
+                        <li>We'll review your requirements.</li>
+                        <li>A dedicated team member will reach out within 24 hours.</li>
+                        <li>We'll discuss customization options and answer any questions.</li>
+               </div>
+              <div class="success-message" style="margin-top: 1rem;">
+                    Thank you for choosing us as your technology partner. 
+                    We're committed to exceeding your expectations!
+              </div>
+              <button class="close-button" onclick="closeSuccessModal()">Got It</button>
+            `;
+
+            // Show the modal with animation
+            successModal.classList.add("show");
+
+            // Scroll to the success message
+            successModal.scrollIntoView({ behavior: 'smooth' });
         })
-        .catch((error) => {
+        .catch(error => {
             console.error('Error saving quote: ', error);
             alert('Error saving quote. Please try again.');
         });
 }
+
+function closeSuccessModal() {
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const successModal = document.querySelector('.success-modal');
+
+    if (modalOverlay && successModal) {
+        modalOverlay.classList.remove('show'); // Hide the overlay
+        successModal.classList.remove('show'); // Hide the modal
+    }
+}
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // System type change
+    document.getElementById('systemType').addEventListener('change', function() {
+        toggleSystemOptions();
+        calculateTotal();
+    });
+
+    // Healthcare options
+    document.getElementById('healthcarePlan').addEventListener('change', calculateTotal);
+    document.getElementById('healthcareSize').addEventListener('change', calculateTotal);
+
+    // Event options
+    document.getElementById('eventAttendees').addEventListener('change', calculateTotal);
+    document.getElementById('eventDuration').addEventListener('change', calculateTotal);
+    document.getElementById('extraAttendees').addEventListener('input', calculateTotal);
+
+    // Supply chain options
+    ['tms', 'wms', 'ofm', 'portal', 'admin'].forEach(component => {
+        document.getElementById(`${component}Check`).addEventListener('change', function() {
+            toggleCapacity(component);
+            calculateTotal();
+        });
+        document.getElementById(`${component}Capacity`).addEventListener('change', calculateTotal);
+    });
+
+    document.getElementById('additionalUsers').addEventListener('input', calculateTotal);
+    document.getElementById('premiumSupport').addEventListener('change', calculateTotal);
+
+    // Contact info
+    ['customerName', 'customerEmail', 'customerPhone', 'customerNotes'].forEach(field => {
+        document.getElementById(field).addEventListener('input', updateContactInfo);
+    });
+});
+
+
 </script>
 </body>
 </html>
