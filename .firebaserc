@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "jabulanigwalaportfolio"
-  }
+    "default": "portfolio-d429a",
+    "jabu": "portfolio-d429a"
+  },
+  "targets": {},
+  "etags": {}
 }
