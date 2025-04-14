@@ -1,10 +1,36 @@
-class NavbarComponent extends HTMLElement {
+class HeaderComponent extends HTMLElement {
     constructor() {
         super();
     }
 
     connectedCallback() {
         this.innerHTML = `
+        <!-- Top contact/social bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-bar-content">
+                    <div class="top-bar-contact">
+                        <a href="mailto:jabula7@outlook.com" class="top-bar-link">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span class="d-none d-md-inline">jabula7@outlook.com</span>
+                        </a>
+                    </div>
+                    <div class="top-bar-socials">
+                        <a href="https://www.linkedin.com/in/jabulani-m-gwala-b89439215" class="top-bar-icon" target="_blank" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="https://www.instagram.com/jabu.gwala?igsh=czZyeGxqcTY1MHpl" class="top-bar-icon" target="_blank" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://github.com/Jabulani00" class="top-bar-icon" target="_blank" aria-label="GitHub">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main navigation bar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="../index.html">
@@ -15,54 +41,37 @@ class NavbarComponent extends HTMLElement {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../projects.html">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../mysaas.html">SaaS</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../expertise.html">Skills</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../pricing.html">Services</a></li>
-                        <li class="nav-item"><a class="nav-link contact-link" href="../contact.html">Contact</a></li>
-                    </ul>
-                </div>
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="mysaas.html">SaaS</a></li>
+        <li class="nav-item"><a class="nav-link" href="expertise.html">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="pricing.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-contact-container">
+        <a class="nav-link contact-link" href="quote.html">Get a Quote</a>
+    </div>
+</div>
             </div>
         </nav>
         `;
 
-        // Add scroll event listener
-        document.addEventListener('DOMContentLoaded', () => {
-            const navbar = this.querySelector('.navbar');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // Add active class to nav links based on current section
+        // Add active class to nav links based on current page
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentPage = window.location.pathname;
             const navLinks = this.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('section');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 60) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').slice(1) === current) {
-                        link.classList.add('active');
-                    }
-                });
+            
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (currentPage.endsWith(linkPath) || 
+                    (currentPage.endsWith('/') && linkPath.endsWith('index.html'))) {
+                    link.classList.add('active');
+                }
             });
         });
     }
 }
 
-customElements.define('navbar-component', NavbarComponent);
+customElements.define('header-component', HeaderComponent);

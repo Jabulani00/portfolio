@@ -12,20 +12,21 @@ class FooterComponent extends HTMLElement {
                     <div class="footer-section brand-section">
                         <div class="logo">JG</div>
                         <p class="brand-desc">Crafting innovative digital solutions with passion and precision.</p>
-                        <div class="social-icons">
-                            <a href="mailto:jabula7@outlook.com" title="Send Email">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/in/jabulani-m-gwala-b89439215" target="_blank" title="LinkedIn">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="https://github.com/Jabulani00" target="_blank" title="GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="login.html" class="portal-link">
-                                <i class="fas fa-briefcase"></i>
-                            </a>
-                        </div>
+                       <div class="social-icons">
+    <a href="https://www.instagram.com/jabu.gwala?igsh=czZyeGxqcTY1MHpl" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/jabulani-m-gwala-b89439215" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="https://github.com/Jabulani00" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i>
+    </a>
+    <a href="login.html" class="portal-link">
+        <i class="fas fa-briefcase"></i>
+    </a>
+</div>
+
                     </div>
                     <div class="footer-section">
                         <h4>Navigation</h4>

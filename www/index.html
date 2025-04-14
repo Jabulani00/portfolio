@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jabulani Gwala - Full Stack Developer | Software Solutions & Project Management</title>
+    <!-- Code Protection Script -->
     <script src="codeProtection.js"></script>
     <!-- Canonical URL -->
     <link rel="canonical" href="https://jabulanigwala.bio" />
@@ -46,7 +47,8 @@
     <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Custom CSS -->
     <style>
         :root {
@@ -79,11 +81,11 @@
             height: 250px;
             object-fit: cover;
             border-radius: 50%;
-            border: 4px solid var(--primary-color);
+            border: 4px solid var(--accent-color);
         }
         .section-title {
-            color: var(--secondary-color);
-            border-bottom: 2px solid var(--primary-color);
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
             padding-bottom: 10px;
         }
         .social-icons a {
@@ -109,6 +111,7 @@
     <!-- Component Scripts -->
     <script src="navbar.js"></script>
     <script src="footer.js"></script>
+    <script src="about.js"></script>
 
     <!-- Schema.org Markup -->
     <script type="application/ld+json">
@@ -169,39 +172,78 @@
 </head>
 <body>
     <!-- Navigation -->
-    <navbar-component></navbar-component>
+    <header-component></header-component>
 
     <main class="container py-5">
    
       <!-- About Section -->
-      <section class="about-section" itemscope itemtype="http://schema.org/Person">
-        <div class="about-container">
-            <div class="profile-container">
-                <img itemprop="image" src="assests/_DSC00521.JPG" alt="Jabulani Gwala - Full Stack Developer and Project Manager" class="profile-img">
+     <!-- About/Hero Section -->
+<section class="hero-section" id="about">
+  <div class="particle-background"></div>
+  <div class="hero-container">
+      <div class="profile-card">
+          <div class="profile-image-wrapper">
+              <img src="assests/_DSC00521.JPG" alt="Jabulani Gwala - Full Stack Developer and Project Manager" class="profile-img">
+              <div class="profile-glow"></div>
+          </div>
+          <div class="social-strip">
+              <a href="https://linkedin.com/in/jabulani-m-gwala-b89439215" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+              <a href="https://github.com/Jabulani00" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+              <a href="https://www.instagram.com/jabu.gwala?igsh=czZyeGxqcTY1MHpl" aria-label="Twitter Profile"><i class="fab fa-instagram"></i></a>
+              <a href="mailto:jabula7@outlook.com" aria-label="Email Contact"><i class="fas fa-envelope"></i></a>
             </div>
-            <div class="content-container">
-                <article class="bio-card">
-                    <h1 class="name-title" itemprop="name">Jabulani Gwala</h1>
-                    <span class="role-title" itemprop="jobTitle">Software Developer & Project Manager</span>
-                    <p class="bio-text" itemprop="description">
-                        Passionate about crafting innovative digital solutions that transform ideas into reality. As a full-stack developer and project manager, I specialize in building scalable web applications, mobile solutions, and enterprise platforms that drive business growth and enhance user experience.
-                    </p>
-                    <nav class="tech-pills" aria-label="Skills and expertise">
-                        <span class="tech-pill" itemprop="knowsAbout">Full Stack Development</span>
-                        <span class="tech-pill" itemprop="knowsAbout">Project Management</span>
-                        <span class="tech-pill" itemprop="knowsAbout">SaaS Platforms</span>
-                        <span class="tech-pill" itemprop="knowsAbout">ChatBot Agents</span>
-                        <span class="tech-pill" itemprop="knowsAbout">Mobile Development</span>
-                        <span class="tech-pill" itemprop="knowsAbout">Website Development</span>
-                        <span class="tech-pill" itemprop="knowsAbout">Web Development</span>
-                        <span class="tech-pill" itemprop="knowsAbout">Innovation</span>
-                        
-                        <a class="tech-pill" href="about.html" title="View Jabulani Gwala's Portfolio">Portfolio</a>
-                    </nav>
-                </article>
-            </div>
-        </div>
-    </section>
+      </div>
+      
+      <div class="content-wrapper">
+          <div class="intro-text">
+              <h1 class="name-title">Jabulani Gwala</h1>
+              <div class="title-animation">
+                  <span class="role-title current">Software Developer</span>
+                  <span class="role-title">Project Manager</span>
+                  <span class="role-title">Problem Solver</span>
+              </div>
+              
+              <p class="tagline">Transforming <span class="highlight">ideas</span> into <span class="highlight">digital reality</span></p>
+          </div>
+          
+          <div class="bio-content">
+              <p class="bio-text">
+                  I craft innovative digital solutions that help businesses grow and thrive in the digital landscape. With expertise in full-stack development and project management, I deliver scalable applications that combine elegant design with powerful functionality.
+              </p>
+              
+              <div class="expertise-grid">
+                  <div class="expertise-card">
+                      <i class="fas fa-code"></i>
+                      <h3>Web Development</h3>
+                      <p>Custom websites & web applications</p>
+                  </div>
+                  <div class="expertise-card">
+                      <i class="fas fa-mobile-alt"></i>
+                      <h3>Mobile Apps</h3>
+                      <p>Cross-platform mobile solutions</p>
+                  </div>
+                  <div class="expertise-card">
+                      <i class="fas fa-robot"></i>
+                      <h3>ChatBot Agents</h3>
+                      <p>Intelligent conversation systems</p>
+                  </div>
+                  <div class="expertise-card">
+                      <i class="fas fa-cloud"></i>
+                      <h3>SaaS Platforms</h3>
+                      <p>Scalable cloud-based solutions</p>
+                  </div>
+              </div>
+              <br>
+              <div class="cta-container">
+                  <a href="about.html" class="cta-button primary">View My Work</a>
+                  <a href="contact.html" class="cta-button secondary">Let's Connect</a>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+
+</section>
 </main>
 
     <br>

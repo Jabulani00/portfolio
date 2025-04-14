@@ -1,90 +1,244 @@
-/* General Section Styling */
-.section-title {
+/* Modern Eye-Catching CSS for Project Showcase - Updated Theme */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --dark-bg: #121212;
+    --dark-card: #1E1E1E;
+    --text-color: #E0E0E0;
+    --text-muted: #A0A0A0;
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-accent: linear-gradient(135deg, var(--accent-color), #f39c12);
+    --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --hover-shadow: 0 15px 35px rgba(52, 152, 219, 0.25);
+    --transition-speed: 0.3s;
+    --border-radius: 15px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Section Styling */
+#projects {
+    padding: 5rem 0;
+    background-color: var(--dark-bg);
     position: relative;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-    color: var(--primary-color);
-    font-weight: 700;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Section Header */
+#projects header {
+    margin-bottom: 3rem;
     text-align: center;
 }
 
-.section-title::after {
+#projects h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+#projects h2::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
+    bottom: -12px;
+    left: 10%;
+    width: 80%;
     height: 4px;
-    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    background: var(--gradient-primary);
+    border-radius: 4px;
 }
 
-/* Glassmorphic Card */
-.glassmorphic-card {
+/* Project Cards */
+.project-card {
     background: rgba(30, 30, 30, 0.6);
     backdrop-filter: blur(10px);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.125);
-    transition: all var(--transition-speed) ease;
-    padding: 15px;
-    color: var(--text-color);
+    border-radius: var(--border-radius);
     overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
+    border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
-.glassmorphic-card:hover {
+.project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
 }
 
-/* Card Image */
-.card-img-top {
-    border-radius: 10px;
-    max-height: 150px;
+/* Project Image */
+.project-image {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    height: 180px;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    margin-bottom: 15px;
+    object-position: center;
+    transition: transform 0.6s ease;
 }
 
-/* Card Body */
-.card-body {
-    text-align: center;
+.project-card:hover .project-image img {
+    transform: scale(1.05);
 }
 
-.card-title {
-    font-size: 1.25rem;
+/* Project Content */
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
     color: var(--primary-color);
-    font-weight: bold;
-    margin-bottom: 10px;
+    transition: color var(--transition-speed);
 }
 
-.card-text {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    margin-bottom: 15px;
+.project-card:hover .project-content h3 {
+    color: var(--secondary-color);
 }
 
-.btn-primary {
+.project-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Project Link */
+.project-content a {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
     background: var(--primary-color);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 20px;
-    transition: background var(--transition-speed);
+    color: var(--text-color);
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all var(--transition-speed);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
 }
 
-.btn-primary:hover {
+.project-content a:hover {
     background: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Footer/View All */
+.projects-footer {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--accent-color);
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all var(--transition-speed);
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+    border: none;
+}
+
+.view-all-btn:hover {
+    transform: translateY(-5px);
+    background: var(--gradient-accent);
+    box-shadow: 0 12px 25px rgba(231, 76, 60, 0.4);
+}
+
+/* Animation for Cards */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-card {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.project-card:nth-child(2n) {
+    animation-delay: 0.1s;
+}
+
+.project-card:nth-child(3n) {
+    animation-delay: 0.2s;
 }
 
 /* Responsive Design */
+@media (max-width: 992px) {
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
-    .card-img-top {
-        max-height: 120px;
+    #projects h2 {
+        font-size: 2rem;
     }
-
-    .card-title {
-        font-size: 1rem;
+    
+    .project-image {
+        height: 160px;
     }
+    
+    .project-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .project-content p {
+        font-size: 0.9rem;
+    }
+}
 
-    .card-text {
-        font-size: 0.8rem;
+@media (max-width: 576px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 340px;
+        margin: 0 auto;
+    }
+    
+    .project-image {
+        height: 200px;
     }
 }
