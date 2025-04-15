@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Jabulani Gwala</title>
-    <script src="codeProtection.js"></script>
+     <script src="codeProtection.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/navbar.css" rel="stylesheet">
     <link href="../css/contact.css" rel="stylesheet">
     <link href="../css/footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
             <!-- Favicon -->
             <link rel="icon" type="image/png" href="assests/_DSC00521.JPG" />
     <!-- EmailJS SDK -->
@@ -29,83 +29,97 @@
     <main class="container py-5">
         <section id="contact" class="contact-section">
             <div class="container">
-                <h2 class="section-title mb-4">Contact Me</h2>
+                <h2 class="section-title text-center mb-5">Let's Connect</h2>
+                
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="contact-card">
-                            <div class="contact-info">
-                                <h3 class="location-title">Durban, South Africa</h3>
-                                <div class="map-container">
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d225497.2213942834!2d30.947356!3d-29.8625488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7aa0b53cc4759%3A0x75fcb71c30109487!2sDurban!5e0!3m2!1sen!2ssa!4v1706288400000!5m2!1sen!2ssa"
-                                        allowfullscreen=""
-                                        loading="lazy">
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-card">
-                            <div class="contact-info">
-                                <h3 class="location-title">Contact Information</h3>
-                                <div class="contact-info-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-envelope"></i>
+                    <!-- Contact Form Column -->
+                    <div class="col-lg-7 mb-4 mb-lg-0">
+                        <div class="contact-form-container p-4 rounded shadow-sm">
+                            <h3 class="mb-4">Send Me a Message</h3>
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
                                     </div>
-                                    <div>
-                                        <p class="mb-0">jabula7@outlook.com</p>
+                                    <div class="col-md-6 mb-3">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
                                     </div>
                                 </div>
-                                <div class="contact-info-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0">+27 78 577 5316</p>
-                                    </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
                                 </div>
-                                <div class="contact-info-item">
-                                    <div class="contact-icon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0">Durban, South Africa</p>
-                                    </div>
+                                <div class="mb-4">
+                                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
                                 </div>
-                            </div>
+                                <button type="submit" class="btn btn-primary w-100" id="submitBtn">Send Message</button>
+                                <div id="status-message" class="mt-3"></div>
+                            </form>
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
-                        <div class="contact-form">
-                            <h3 class="location-title mb-4">Send Me a Message</h3>
-                            <form id="contactForm">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                    <!-- Contact Info Column -->
+                    <div class="col-lg-5">
+                        <div class="contact-info-container p-4 rounded shadow-sm mb-4">
+                            <h3 class="mb-4">Contact Details</h3>
+                            
+                            <div class="contact-info-item d-flex align-items-center mb-3">
+                                <div class="contact-icon me-3">
+                                    <i class="fas fa-envelope"></i>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
+                                <div>
+                                    <p class="mb-0">jabula7@outlook.com</p>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="subject" class="form-label">Subject</label>
-                                    <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+                            
+                            <div class="contact-info-item d-flex align-items-center mb-3">
+                                <div class="contact-icon me-3">
+                                    <i class="fas fa-map-marker-alt"></i>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                                <div>
+                                    <p class="mb-0">Durban, South Africa</p>
                                 </div>
-                                <button type="submit" class="contact-btn" id="submitBtn">Send Message</button>
-                                <div id="status-message" class="mt-3"></div>
-                            </form>
+                            </div>
+                            
+                            <div class="contact-info-item d-flex align-items-center mb-4">
+                                <div class="contact-icon me-3">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0">+27 78 577 5316</p>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mb-3">Connect With Me</h4>
+                            <div class="social-links d-flex">
+                                <a href="https://www.linkedin.com/in/jabulani-m-gwala-b89439215" class="social-icon me-3" target="_blank" aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin fa-lg"></i>
+                                </a>
+                                <a href="https://www.instagram.com/jabu.gwala?igsh=czZyeGxqcTY1MHpl" class="social-icon me-3" target="_blank" aria-label="Instagram">
+                                    <i class="fab fa-instagram fa-lg"></i>
+                                </a>
+                                <a href="https://github.com/Jabulani00" class="social-icon me-3" target="_blank" aria-label="GitHub">
+                                    <i class="fab fa-github fa-lg"></i>
+                                </a>
+                                <a href="mailto:jabula7@outlook.com" class="social-icon" aria-label="Email">
+                                    <i class="fas fa-envelope fa-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="map-container rounded shadow-sm overflow-hidden">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d225497.2213942834!2d30.947356!3d-29.8625488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7aa0b53cc4759%3A0x75fcb71c30109487!2sDurban!5e0!3m2!1sen!2ssa!4v1706288400000!5m2!1sen!2ssa"
+                                height="250"
+                                style="border:0; width:100%;"
+                                allowfullscreen=""
+                                loading="lazy">
+                            </iframe>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
     <footer-component></footer-component>
     
     <script src="navbar.js"></script>

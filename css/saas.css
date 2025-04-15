@@ -22,6 +22,24 @@
     background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
 }
 
+/* SaaS Cards Row Layout */
+.saas-cards-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* Square Card Layout */
+.saas-card {
+    width: calc(33.333% - 20px);
+    max-width: 350px;
+    aspect-ratio: 1/1;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
 /* Glassmorphic Card */
 .glassmorphic-card {
     background: rgba(30, 30, 30, 0.7);
@@ -32,6 +50,9 @@
     padding: 20px;
     position: relative;
     overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .glassmorphic-card::before {
@@ -60,9 +81,18 @@
 }
 
 /* Card Image */
-.card-img-top {
+.card-img-container {
+    height: 55%;  /* Increased from 40% to 55% */
+    overflow: hidden;
     border-radius: 15px;
-    max-height: 180px;
+    margin-bottom: 15px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
     transform: scale(1);
     transition: transform 0.5s ease;
 }
@@ -74,22 +104,61 @@
 /* Card Body */
 .card-body {
     text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-title {
-    font-size: 1.4rem;
+    font-size: 1.1rem;  /* Slightly reduced from 1.2rem */
     background: linear-gradient(120deg, var(--primary-color), var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 15px;
+    margin-bottom: 10px;  /* Reduced from 15px */
 }
 
 .card-text {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.85rem;  /* Slightly reduced from 0.9rem */
+    line-height: 1.4;
     color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;  /* Reduced from 4 to 3 lines */
+    -webkit-box-orient: vertical;
+    margin-bottom: 10px;  /* Reduced from 15px */
 }
 
+/* Card Button Container */
+.card-button-container {
+    margin-top: auto;
+    padding-top: 10px;  /* Reduced from 15px */
+}
+
+/* Card Quote Button */
+.btn-card-quote {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.btn-card-quote:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+/* Main Button */
 .btn-primary {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     border: none;
@@ -108,31 +177,32 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .card-img-top {
-        max-height: 120px;
+@media (max-width: 992px) {
+    .saas-card {
+        width: calc(50% - 15px);
     }
+}
 
+@media (max-width: 768px) {
+    .saas-card {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .card-img-container {
+        height: 50%;  /* Slightly reduced on mobile */
+    }
+    
     .card-title {
         font-size: 1rem;
     }
-
+    
     .card-text {
         font-size: 0.8rem;
     }
-}
-
-.glassmorphic-button {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 12px 30px;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-}
-
-.glassmorphic-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    
+    .btn-card-quote {
+        padding: 7px 18px;
+        font-size: 0.85rem;
+    }
 }
