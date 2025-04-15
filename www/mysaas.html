@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My SaaS Platforms - Jabulani Gwala</title>
-    <script src="codeProtection.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/navbar.css" rel="stylesheet">
     <link href="../css/saas.css" rel="stylesheet">
     <link href="../css/footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/transitions.css">
+    <script src="codeProtection.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="pageTransitions.js" defer></script>
 </head>
 <body>
     <header-component></header-component>
@@ -20,74 +22,163 @@
     <main class="container py-5">
         <section id="saas" class="mb-5">
             <h2 class="section-title mb-4">My SaaS Platforms</h2>
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <div class="glassmorphic-card h-100">
-                        <img src="../assests/healisir.jpg" class="card-img-top" alt="Healthcare Management System">
-                        <div class="card-body">
-                            <h5 class="card-title">Digital Healthcare Management Suite</h5>
-                            <p class="card-text">An integrated healthcare platform offering appointment scheduling, medical record management, telemedicine consultations, and automated prescription services for healthcare providers and patients.</p>
+            
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Healthcare Card -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Digital Healthcare <span>Management Suite</span>
+                            </h3>
+                            <p class="card-hover__text">An integrated healthcare platform offering appointment scheduling, medical record management, telemedicine consultations, and automated prescription services.</p>
+                            <a href="saas.html?product=healthcare" class="card-hover__link">
+                                <span>Get a Quote</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
                         </div>
+                        <div class="card-hover__extra">
+                            <h4>Transform your <span>healthcare</span> operations!</h4>
+                        </div>
+                        <img src="../assests/healisir.jpg" alt="Healthcare Management System">
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <div class="glassmorphic-card h-100">
-                        <img src="../assests/dropit.png" class="card-img-top" alt="Courier Marketplace">
-                        <div class="card-body">
-                            <h5 class="card-title">Courier Marketplace</h5>
-                            <p class="card-text">DropIt is a courier marketplace for fast, simple, and on-demand shipping. Track deliveries with ease and enjoy hassle-free logistics at your fingertips.</p>
-                            
+                
+                <!-- Courier Card -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Courier <span>Marketplace</span>
+                            </h3>
+                            <p class="card-hover__text">DropIt is a courier marketplace for fast, simple, and on-demand shipping. Track deliveries with ease and enjoy hassle-free logistics at your fingertips.</p>
+                            <a href="saas.html?product=dropit" class="card-hover__link">
+                                <span>Get a Quote</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
                         </div>
+                        <div class="card-hover__extra">
+                            <h4>Simplify your <span>shipping</span> needs today!</h4>
+                        </div>
+                        <img src="../assests/h.jpeg" alt="Courier Marketplace">
+                    </div>
+                </div>
+                
+                <!-- Transport Card -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Integrated Transport <span>Management System</span>
+                            </h3>
+                            <p class="card-hover__text">ICTMS streamlines container transport by managing user access, trip assignments, and tracking instructions for efficient logistics operations.</p>
+                            <a href="saas.html" class="card-hover__link">
+                                <span>Get a Quote</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Optimize your <span>transport</span> operations!</h4>
+                        </div>
+                        <img src="../assests/ictmslogo.jpeg" alt="Integrated Transport Management System">
                     </div>
                 </div>
 
-                <div class="col-md-3 mb-4">
-                    <div class="glassmorphic-card h-100">
-                        <img src="../assests/ictms.png" class="card-img-top" alt="Integrated Transport Management System">
-                        <div class="card-body">
-                            <h5 class="card-title">Integrated Transport Management System</h5>
-                            <p class="card-text">ICTMS streamlines container transport by managing user access, trip assignments, and tracking instructions for efficient logistics operations.</p>
-                            
+                <!-- Event Management Card -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Ademic Conference Management <span>Management Solution</span>
+                            </h3>
+                            <p class="card-hover__text">All-in-one platform for managing virtual and in-person events, featuring registration systems, attendee engagement tools, virtual networking spaces, and analytics dashboard.</p>
+                            <a href="saas.html?product=events" class="card-hover__link">
+                                <span>Get a Quote</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
                         </div>
+                        <div class="card-hover__extra">
+                            <h4>Elevate your <span>events</span> to the next level!</h4>
+                        </div>
+                        <img src="../assests/memproxi.PNG" alt="Event Management Solution">
                     </div>
                 </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="glassmorphic-card h-100">
-                        <img src="../assests/memproxi.PNG" class="card-img-top" alt="Event Management Solution">
-                        <div class="card-body">
-                            <h5 class="card-title">Enterprise Event Management Solution</h5>
-                            <p class="card-text">All-in-one platform for managing virtual and in-person events, featuring registration systems, attendee engagement tools, virtual networking spaces, and analytics dashboard.</p>
-                            
+                
+                <!-- Supply Chain Card -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Intelligent Supply Chain <span>Management System</span>
+                            </h3>
+                            <p class="card-hover__text">End-to-end logistics platform with real-time inventory tracking, warehouse optimization, automated order processing, and predictive analytics for supply chain efficiency.</p>
+                            <a href="saas.html?product=supplychain" class="card-hover__link">
+                                <span>Get a Quote</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
                         </div>
+                        <div class="card-hover__extra">
+                            <h4>Enhance your <span>supply chain</span> efficiency!</h4>
+                        </div>
+                        <img src="../assests/lg.jpeg" alt="Supply Chain Management System">
                     </div>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <div class="glassmorphic-card h-100">
-                        <img src="../assests/lg.jpeg" class="card-img-top" alt="Supply Chain Management System">
-                        <div class="card-body">
-                            <h5 class="card-title">Intelligent Supply Chain Management System</h5>
-                            <p class="card-text">End-to-end logistics platform with real-time inventory tracking, warehouse optimization, automated order processing, and predictive analytics for supply chain efficiency.</p>
+                
+                <!-- B2B Trading Card -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                B2B Raw Materials <span>Trading Platform</span>
+                            </h3>
+                            <p class="card-hover__text">Secure marketplace for trading raw materials and unprocessed products, featuring verified business profiles, automated pricing, quality assurance systems, and cross-border transaction support.</p>
+                            <a href="saas.html?product=b2b" class="card-hover__link">
+                                <span>Get a Quote</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="glassmorphic-card h-100">
-                        <img src="../assests/ux.jpeg" class="card-img-top" alt="B2B Trading Platform">
-                        <div class="card-body">
-                            <h5 class="card-title">B2B Raw Materials Trading Platform</h5>
-                            <p class="card-text">Secure marketplace for trading raw materials and unprocessed products, featuring verified business profiles, automated pricing, quality assurance systems, and cross-border transaction support.</p>
+                        <div class="card-hover__extra">
+                            <h4>Revolutionize your <span>B2B</span> trading experience!</h4>
                         </div>
+                        <img src="../assests/ux.jpeg" alt="B2B Trading Platform">
                     </div>
                 </div>
             </div>
+            
             <div class="text-center mt-4">
-                <a href="saas.html" class="btn btn-primary btn-lg">Get a Quote</a>
+                <button class="continue-application" onclick="window.location.href='saas.html'">
+                    <div>
+                        <div class="pencil"></div>
+                        <div class="folder">
+                            <div class="top">
+                                <svg viewBox="0 0 24 27">
+                                    <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                                </svg>
+                            </div>
+                            <div class="paper"></div>
+                        </div>
+                    </div>
+                    Get a Quote for All Services
+                </button>
             </div>
+  
         </section>
     </main>
 
     <footer-component></footer-component>
+
     <script src="navbar.js"></script>
     <script src="footer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

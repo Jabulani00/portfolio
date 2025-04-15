@@ -41,19 +41,22 @@ class HeaderComponent extends HTMLElement {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mx-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="mysaas.html">SaaS</a></li>
-        <li class="nav-item"><a class="nav-link" href="expertise.html">Skills</a></li>
-        <li class="nav-item"><a class="nav-link" href="pricing.html">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-contact-container">
-        <a class="nav-link contact-link" href="quote.html">Get a Quote</a>
-    </div>
-</div>
+                    <button class="mobile-close-btn" aria-label="Close menu">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="mysaas.html">SaaS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="expertise.html">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pricing.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                    <div class="nav-contact-container">
+                        <a class="nav-link contact-link" href="quote.html">Get a Quote</a>
+                    </div>
+                </div>
             </div>
         </nav>
         `;
@@ -70,6 +73,29 @@ class HeaderComponent extends HTMLElement {
                     link.classList.add('active');
                 }
             });
+        });
+
+        // Add animation timing for menu items
+        const navItems = this.querySelectorAll('.nav-item');
+        navItems.forEach((item, index) => {
+            item.style.setProperty('--item-number', index);
+        });
+
+        // Handle mobile menu open/close animation
+        const navbarToggler = this.querySelector('.navbar-toggler');
+        const navbarCollapse = this.querySelector('.navbar-collapse');
+
+        navbarToggler?.addEventListener('click', () => {
+            if (!navbarCollapse.classList.contains('show')) {
+                navbarCollapse.style.right = '0';
+            }
+        });
+
+        const closeBtn = this.querySelector('.mobile-close-btn');
+        closeBtn?.addEventListener('click', () => {
+            const collapse = this.querySelector('.navbar-collapse');
+            collapse.classList.remove('show');
+            collapse.style.right = '-100%';
         });
     }
 }

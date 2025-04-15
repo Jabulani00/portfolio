@@ -11,180 +11,300 @@
     <link href="../css/navbar.css" rel="stylesheet">
     <link href="../css/projects.css" rel="stylesheet">
     <link href="../css/footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/transitions.css">
+    <script src="../JS/pageTransitions.js" defer></script>
 </head>
 <body>
     <header-component></header-component>
 
-    <main class="container">
-        <section id="projects">
-          <header>
-            <h2>My Projects & Platforms</h2>
-          </header>
-          <div class="container mx-auto mt-4">
-            <div class="row">
-              <!-- Election Monitoring System -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/mk.png" class="card-img-top" alt="Election Monitoring System">
-                  <div class="card-body">
-                    <h5 class="card-title">Election Monitoring System</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Secure electoral platform</h6>
-                    <p class="card-text">A secure platform for monitoring electoral processes, detecting irregularities, and ensuring transparent vote counting and reporting.</p>
-                    <a href="https://mkvotes.com/login" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+    <main class="container py-5">
+        <section id="projects" class="mb-5">
+            <h2 class="section-title mb-4">My Projects & Platforms</h2>
+            
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Election Monitoring System -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Election Monitoring <span>System</span>
+                            </h3>
+                            <p class="card-hover__text">A secure platform for monitoring electoral processes, detecting irregularities, and ensuring transparent vote counting and reporting.</p>
+                            <a href="https://mkvotes.com/login" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Secure <span>electoral</span> platform!</h4>
+                        </div>
+                        <img src="../assests/mk.png" alt="Election Monitoring System">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Virtual & In-Person Event Management Platform -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/memproxi.PNG" class="card-img-top" alt="Memproxi Events Platform">
-                  <div class="card-body">
-                    <h5 class="card-title">Virtual & In-Person Event Management Platform</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Comprehensive event solution</h6>
-                    <p class="card-text">Comprehensive solution for organizing and managing both online and physical conferences, seminars, and corporate events.</p>
-                    <a href="https://www.memproxi.com" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Virtual & In-Person Event Management -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                               Ademic Conference Management <span>Platform</span>
+                            </h3>
+                            <p class="card-hover__text">Comprehensive solution for organizing and managing both online and physical conferences, seminars, and corporate events.</p>
+                            <a href="https://www.memproxi.com" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Complete <span>event</span> solution!</h4>
+                        </div>
+                        <img src="../assests/memproxi.PNG" alt="Memproxi Events Platform">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Academic Talent Recruitment Platform -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/coop.png" class="card-img-top" alt="Academic Talent Platform">
-                  <div class="card-body">
-                    <h5 class="card-title">Academic Talent Recruitment Platform</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">University talent connector</h6>
-                    <p class="card-text">Digital platform connecting companies with university students and graduates, facilitating resume submissions and professional networking opportunities.</p>
-                    <a href="https://www.coopcv.com" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Academic Talent Platform -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Academic Talent <span>Platform</span>
+                            </h3>
+                            <p class="card-hover__text">Digital platform connecting companies with university students and graduates, facilitating resume submissions and professional networking opportunities.</p>
+                            <a href="https://www.coopcv.com" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Connect with <span>talent</span> today!</h4>
+                        </div>
+                        <img src="../assests/coop.png" alt="Academic Talent Platform">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Tarzan Couriers Company Profile -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/tarzan.png" class="card-img-top" alt="Tarzan Couriers Company Profile">
-                  <div class="card-body">
-                    <h5 class="card-title">Tarzan Couriers Company Profile</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Courier service website</h6>
-                    <p class="card-text">A well-designed company profile website showcasing Tarzan Couriers' services and professionalism.</p>
-                    <a href="https://tarzancarriescc.web.app" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Tarzan Couriers -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Tarzan Couriers <span>Profile</span>
+                            </h3>
+                            <p class="card-hover__text">A well-designed company profile website showcasing Tarzan Couriers' services and professionalism.</p>
+                            <a href="https://tarzancarriescc.web.app" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Professional <span>courier</span> services!</h4>
+                        </div>
+                        <img src="../assests/tarzan.png" alt="Tarzan Couriers Company Profile">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Courier Marketplace -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/dropit.png" class="card-img-top" alt="Courier Marketplace">
-                  <div class="card-body">
-                    <h5 class="card-title">Courier Marketplace</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">On-demand shipping platform</h6>
-                    <p class="card-text">DropIt is a courier marketplace for fast, simple, and on-demand shipping. Track deliveries with ease and enjoy hassle-free logistics at your fingertips.</p>
-                    <a href="https://dropit-courier.web.app" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Courier Marketplace -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                DropIt <span>Marketplace</span>
+                            </h3>
+                            <p class="card-hover__text">DropIt is a courier marketplace for fast, simple, and on-demand shipping. Track deliveries with ease and enjoy hassle-free logistics at your fingertips.</p>
+                            <a href="https://dropit-courier.web.app" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>On-demand <span>shipping</span> platform!</h4>
+                        </div>
+                        <img src="../assests/h.jpeg" alt="Courier Marketplace">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Healthcare Management Platform -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/healixir.png" class="card-img-top" alt="Healthcare Management Platform">
-                  <div class="card-body">
-                    <h5 class="card-title">Healthcare Management Platform</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Universal healthcare system</h6>
-                    <p class="card-text">Healixir is a universal healthcare management platform designed to support healthcare facilities, staff, and patients. It offers flexible patient record-keeping, supports one-time visits, and ensures seamless electronic health record (EHR) management.</p>
-                    <a href="https://healixir.org" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Healthcare Platform -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Healthcare <span>Platform</span>
+                            </h3>
+                            <p class="card-hover__text">Healixir is a universal healthcare management platform designed to support healthcare facilities, staff, and patients with flexible patient record-keeping and EHR management.</p>
+                            <a href="https://healixir.org" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Universal <span>healthcare</span> solution!</h4>
+                        </div>
+                        <img src="../assests/healisir.jpg" alt="Healthcare Management Platform">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Integrated Transport Management System -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/ictms.png" class="card-img-top" alt="Integrated Transport Management System">
-                  <div class="card-body">
-                    <h5 class="card-title">Integrated Transport Management System</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Container logistics solution</h6>
-                    <p class="card-text">ICTMS streamlines container transport by managing user access, trip assignments, and tracking instructions for efficient logistics operations.</p>
-                    <a href="https://transportmanagement-system.web.app" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Transport Management System -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Transport <span>Management</span>
+                            </h3>
+                            <p class="card-hover__text">ICTMS streamlines container transport by managing user access, trip assignments, and tracking instructions for efficient logistics operations.</p>
+                            <a href="https://transportmanagement-system.web.app" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Efficient <span>logistics</span> solution!</h4>
+                        </div>
+                        <img src="../assests/ictmslogo.jpeg" alt="Integrated Transport Management System">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Professional Career Marketplace -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/ICON.jpeg" class="card-img-top" alt="WowJobs Career Platform">
-                  <div class="card-body">
-                    <h5 class="card-title">Professional Career Marketplace</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Job recruitment platform</h6>
-                    <p class="card-text">Comprehensive job search and recruitment platform connecting employers with qualified candidates across various industries.</p>
-                    <a href="https://wowjobs.blog" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Professional Career Marketplace -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Career <span>Marketplace</span>
+                            </h3>
+                            <p class="card-hover__text">Comprehensive job search and recruitment platform connecting employers with qualified candidates across various industries.</p>
+                            <a href="https://wowjobs.blog" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Find your <span>dream</span> job!</h4>
+                        </div>
+                        <img src="../assests/ICON.jpeg" alt="WowJobs Career Platform">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Event Resources Marketplace -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/unieasy.png" class="card-img-top" alt="Event Resources Marketplace">
-                  <div class="card-body">
-                    <h5 class="card-title">Event Resources Marketplace</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Event planning platform</h6>
-                    <p class="card-text">Online marketplace connecting event planners with vendors offering venues, equipment, and services for seamless event organization.</p>
-                    <a href="https://uniteasy-62dbf.web.app" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Event Resources -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Event Resources <span>Marketplace</span>
+                            </h3>
+                            <p class="card-hover__text">Online marketplace connecting event planners with vendors offering venues, equipment, and services for seamless event organization.</p>
+                            <a href="https://uniteasy-62dbf.web.app" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Your event <span>resource</span> hub!</h4>
+                        </div>
+                        <img src="../assests/ubunye.PNG" alt="Event Resources Marketplace">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Automated Electrical Fault Reporting System -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/chatbot.jpg" class="card-img-top" alt="Utility Fault Reporter">
-                  <div class="card-body">
-                    <h5 class="card-title">Automated Electrical Fault Reporting System</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Multi-channel reporting</h6>
-                    <p class="card-text">Multi-channel reporting system enabling users to report electrical faults through both web interface and WhatsApp messaging.</p>
-                    <a href="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/01/27/08/20250127083220-6GMR9WTW.json" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Fault Reporting System -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Electrical Fault <span>Reporter</span>
+                            </h3>
+                            <p class="card-hover__text">Multi-channel reporting system enabling users to report electrical faults through both web interface and WhatsApp messaging.</p>
+                            <a href="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/01/27/08/20250127083220-6GMR9WTW.json" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Easy <span>fault</span> reporting!</h4>
+                        </div>
+                        <img src="../assests/chatbot.jpg" alt="Utility Fault Reporter">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Corporate Social Engagement Platform -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/ai-generated-9057924_640.jpg" class="card-img-top" alt="Corporate Social Platform">
-                  <div class="card-body">
-                    <h5 class="card-title">Corporate Social Engagement Platform</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Internal networking platform</h6>
-                    <p class="card-text">Internal social networking platform for organizations to share company updates, foster employee engagement, and gather public feedback.</p>
-                    <a href="https://ipmworld.co.za" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Corporate Social Platform -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Corporate Social <span>Platform</span>
+                            </h3>
+                            <p class="card-hover__text">Internal social networking platform for organizations to share company updates, foster employee engagement, and gather public feedback.</p>
+                            <a href="https://ipmworld.co.za" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Engage your <span>team</span>!</h4>
+                        </div>
+                        <img src="../assests/ai-generated-9057924_640.jpg" alt="Corporate Social Platform">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- Comprehensive Entrepreneurship Hub -->
-              <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
-                  <img src="../assests/WorkscapeWatch.png" class="card-img-top" alt="Entrepreneur Resource Hub">
-                  <div class="card-body">
-                    <h5 class="card-title">Comprehensive Entrepreneurship Hub</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">All-in-one business platform</h6>
-                    <p class="card-text">All-in-one platform featuring entrepreneurial content, job listings, freelance opportunities, and business advertising solutions.</p>
-                    <a href="https://workscape.vercel.app" class="btn mr-2" target="_blank"><i class="fas fa-link"></i> Visit Site</a>
-                  </div>
+
+                <!-- Entrepreneurship Hub -->
+                <div class="col">
+                    <div class="card-hover">
+                        <div class="card-hover__content">
+                            <h3 class="card-hover__title">
+                                Entrepreneurship <span>Hub</span>
+                            </h3>
+                            <p class="card-hover__text">All-in-one platform featuring entrepreneurial content, job listings, freelance opportunities, and business advertising solutions.</p>
+                            <a href="https://workscape.vercel.app" target="_blank" class="card-hover__link">
+                                <span>Visit Site</span>
+                                <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>        
+                            </a>
+                        </div>
+                        <div class="card-hover__extra">
+                            <h4>Start your <span>business</span> journey!</h4>
+                        </div>
+                        <img src="../assests/WorkscapeWatch.png" alt="Entrepreneur Resource Hub">
+                    </div>
                 </div>
-              </div>
             </div>
             
-            <div class="text-center mt-4 mb-5">
-              <a href="all-projects.html" class="btn btn-primary">View All Projects</a>
+            <div class="text-center mt-4">
+                <button class="continue-application">
+                    <div>
+                        <div class="pencil"></div>
+                        <div class="folder">
+                            <div class="top">
+                                <svg viewBox="0 0 24 27">
+                                    <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                                </svg>
+                            </div>
+                            <div class="paper"></div>
+                        </div>
+                    </div>
+                    View All Projects
+                </button>
             </div>
-          </div>
         </section>
-      </main>
+    </main>
 
     <footer-component></footer-component>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
