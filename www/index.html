@@ -109,13 +109,14 @@
          <link href="css/main.css" rel="stylesheet">
          <link href="css/navbar.css" rel="stylesheet">
          <link href="css/about.css" rel="stylesheet">
-        
+         <link href="css/stacked-cards.css" rel="stylesheet">
          <link href="css/footer.css" rel="stylesheet">
          <script src="codeProtection.js"></script>
         <!-- Component Scripts -->
         <script src="navbar.js"></script>
         <script src="footer.js"></script>
         <script src="about.js"></script>
+        <script src="whatsapp-button.js"></script>
         <link rel="stylesheet" href="../css/transitions.css">
         <script src="pageTransitions.js" defer></script>
         <!-- Schema.org Markup -->
@@ -178,6 +179,7 @@
 <body>
     <!-- Navigation -->
     <header-component></header-component>
+    <whatsapp-button></whatsapp-button>
 
     <main class="container py-5">
    
@@ -206,14 +208,14 @@
                   <span class="role-title current">Software Developer</span>
                   <span class="role-title">Project Manager</span>
                   <span class="role-title">Problem Solver</span>
-              </div>
+              </div>u
               
-              <p class="tagline">Transforming <span class="highlight">ideas</span> into <span class="highlight">digital reality</span></p>
+              <p class="tagline">Transforming <span class="highlight">vision</span> into <span class="highlight">digital reality</span></p>
           </div>
           
           <div class="bio-content">
               <p class="bio-text">
-                  I craft innovative digital solutions that help businesses grow and thrive in the digital landscape. With expertise in full-stack development and project management, I deliver scalable applications that combine elegant design with powerful functionality.
+                  I craft innovative digital solutions that help businesses grow and thrive in the digital landscape. With expertise in full-stack development and project management, I deliver scalable applications that combine elegant design with powerful functionality. My passion for innovation led me to co-found <a href="https://www.sparkdevstudio.org/" target="_blank">SparkDev Studio</a>, a technology company focused on delivering cutting-edge digital solutions.
               </p>
               
               <div class="expertise-grid">
@@ -240,8 +242,8 @@
               </div>
               <br>
               <div class="cta-container">
-                  <a href="html/about.html" class="cta-button primary">View My Work</a>
-                  <a href="html/contact.html" class="cta-button secondary">Let's Connect</a>
+                  <a href="about.html" class="cta-button primary">View My Work</a>
+                  <a href="contact.html" class="cta-button secondary">Let's Connect</a>
               </div>
           </div>
       </div>
@@ -249,10 +251,97 @@
   
 
 </section>
+<section class="experience-section" id="experience">
+  <h2 class="section-title">My Work Experience</h2>
+  <ul id="cards">
+    <li class="card" id="card_1">
+        <div class="card__content">
+            <figure>
+                <i class="fas fa-project-diagram"></i>
+            </figure>
+            <div>
+                <h2>Project Manager / Software Developer </h2>
+                <h3>Innovation Lab – Mangosuthu University of Technology</h3>
+                <p class="date">Feb 2024 – Jan 2025</p>
+                <p>Led development sprints for new digital health and education platforms.</p>
+                <p>Managed cross-functional teams using Agile methodologies.</p>
+                <p>Conducted requirements gathering, stakeholder communication, and QA testing.</p>
+                <p class="tech-stack">
+                    <strong>Technologies:</strong><br>
+                    <span><i class="fab fa-trello"></i> Trello</span>
+                    <span><i class="fab fa-google"></i> Google Dev Console</span>
+                    <span><i class="fas fa-robot"></i> Botpress</span>
+                    <span><i class="fas fa-server"></i> Hostinger</span>
+                    <span><i class="fab fa-java"></i> Java</span>
+                    <span><i class="fab fa-android"></i> Android Studio</span>
+                    <span><i class="fas fa-palette"></i> Canva</span>
+                    <span><i class="fab fa-slack"></i> Slack</span>
+                    <span><i class="fab fa-angular"></i> Angular</span>
+                    <span><i class="fab fa-github"></i> Git & GitHub</span>
+                    <span><i class="fas fa-database"></i> SQL</span>
+                    <span><i class="fab fa-php"></i> PHP</span>
+                    <span><i class="fab fa-sass"></i> SCSS</span>
+                    <span><i class="fab fa-html5"></i> HTML</span>
+                </p>
+            </div>
+        </div>
+    </li>
+    <li class="card" id="card_2">
+        <div class="card__content">
+            <figure>
+                <i class="fas fa-laptop-code"></i>
+            </figure>
+            <div>
+                <h2>IT Intern</h2>
+                <h3>Innovation Lab – Mangosuthu University of Technology</h3>
+                <p class="date">Feb 2023 – Jan 2024</p>
+                <p>Assisted in backend and frontend development using modern web frameworks.</p>
+                <p>Supported infrastructure deployment and user testing.</p>
+                <p class="tech-stack">
+                    <strong>Technologies:</strong><br>
+                    <span><i class="fab fa-angular"></i> Angular</span>
+                    <span><i class="fas fa-mobile-alt"></i> Ionic</span>
+                    <span><i class="fas fa-fire"></i> Firebase</span>
+                    <span><i class="fas fa-database"></i> SQL</span>
+                    <span><i class="fab fa-php"></i> PHP</span>
+                    <span><i class="fab fa-sass"></i> SCSS</span>
+                    <span><i class="fab fa-html5"></i> HTML</span>
+                    <span><i class="fab fa-microsoft"></i> SharePoint</span>
+                    <span><i class="fab fa-github"></i> Git & GitHub</span>
+                </p>
+            </div>
+        </div>
+    </li>
+    <li class="card" id="card_3">
+        <div class="card__content">
+            <figure>
+                <i class="fas fa-code"></i>
+            </figure>
+            <div>
+                <h2>Software Developer Trainee</h2>
+                <h3>DUT App Factory</h3>
+                <p class="date">Jul 2022 – Dec 2022</p>
+                <p>Built and maintained  applications for the Durban University Of Technology.</p>
+                <p>Participated in design sprints, feature testing, and documentation.</p>
+                <p class="tech-stack">
+                    <strong>Technologies:</strong><br>
+                    <span><i class="fab fa-windows"></i> C#</span>
+                    <span><i class="fab fa-microsoft"></i> .NET</span>
+                    <span><i class="fab fa-js"></i> JavaScript</span>
+                    <span><i class="fab fa-js"></i> jQuery</span>
+                    <span><i class="fas fa-database"></i> SQL</span>
+                    <span><i class="fab fa-microsoft"></i> Azure DevOps</span>
+                    <span><i class="fas fa-paper-plane"></i> Postman</span>
+                </p>
+            </div>
+        </div>
+    </li>
+</ul>
+</section>
 </main>
 
-    <br>
-    <br>
+    
+  
 
     <!-- Footer -->
     <footer-component></footer-component>

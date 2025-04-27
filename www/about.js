@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Animated background particles (optional, can be resource-intensive)
+    // Improved animated background particles
     const section = document.querySelector('.hero-section');
     
-    // Create particles
-    for(let i = 0; i < 50; i++) {
+    // Create more particles for a richer effect
+    for(let i = 0; i < 75; i++) {
         createParticle();
     }
     
@@ -73,50 +73,69 @@ document.addEventListener('DOMContentLoaded', function() {
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
-        // Random position
+        // Enhanced random position with depth
         const posX = Math.random() * 100;
         const posY = Math.random() * 100;
+        const depth = Math.random();
         
-        // Random size
-        const size = Math.random() * 5 + 1;
+        // Variable size based on depth
+        const size = Math.random() * 8 + (depth * 4);
         
-        // Random color
-        const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12'];
+        // Enhanced color palette with opacity
+        const colors = [
+            'rgba(52, 152, 219, 0.8)',  // primary blue
+            'rgba(46, 204, 113, 0.8)',  // secondary green
+            'rgba(231, 76, 60, 0.6)',   // accent red
+            'rgba(243, 156, 18, 0.7)',  // highlight orange
+            'rgba(155, 89, 182, 0.6)'   // purple
+        ];
         const color = colors[Math.floor(Math.random() * colors.length)];
         
-        // Random animation duration
-        const duration = Math.random() * 20 + 10;
+        // Variable animation duration and delay
+        const duration = Math.random() * 25 + 15;
+        const delay = Math.random() * -20;
         
-        // Set styles
+        // Enhanced particle styles
         particle.style.cssText = `
             position: absolute;
             top: ${posY}%;
             left: ${posX}%;
             width: ${size}px;
             height: ${size}px;
-            background-color: ${color};
+            background: ${color};
             border-radius: 50%;
-            opacity: 0.5;
+            filter: blur(${(1 - depth) * 2}px);
+            opacity: ${0.3 + (depth * 0.5)};
             pointer-events: none;
-            animation: float ${duration}s infinite linear;
+            transform: translate3d(0, 0, ${depth * 100}px);
+            animation: float ${duration}s ${delay}s infinite ease-in-out;
         `;
         
         section.appendChild(particle);
     }
     
-    // Add animation keyframes to document
+    // Enhanced animation keyframes
     const style = document.createElement('style');
     style.textContent = `
         @keyframes float {
             0% {
-                transform: translateY(0) translateX(0);
+                transform: translate3d(0, 0, 0) rotate(0deg);
                 opacity: 0;
             }
+            25% {
+                transform: translate3d(100px, -50px, 50px) rotate(90deg);
+                opacity: 0.5;
+            }
             50% {
+                transform: translate3d(200px, 0px, 100px) rotate(180deg);
+                opacity: 0.3;
+            }
+            75% {
+                transform: translate3d(100px, 50px, 50px) rotate(270deg);
                 opacity: 0.5;
             }
             100% {
-                transform: translateY(-100px) translateX(100px);
+                transform: translate3d(0, 0, 0) rotate(360deg);
                 opacity: 0;
             }
         }

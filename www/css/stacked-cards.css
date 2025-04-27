@@ -1,0 +1,267 @@
+:root {
+	--card-height: 450px;
+	--card-margin: 2vw;
+	--card-top-offset: 0.5em;
+	--numcards: 4;
+	--outline-width: 0px;
+}
+
+#cards {
+	padding-bottom: calc(var(--numcards) * var(--card-top-offset)); /* Make place at bottom, as items will slide to that position*/
+	margin-bottom: var(--card-margin); /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+}
+
+#card_1 {
+	--index: 1;
+}
+
+#card_2 {
+	--index: 2;
+}
+
+#card_3 {
+	--index: 3;
+}
+
+#card_4 {
+	--index: 4;
+}
+
+.card {
+	position: sticky;
+	top: 0;
+	padding-top: calc(var(--index) * var(--card-top-offset));
+}
+
+@supports (animation-timeline: works) {
+
+	@scroll-timeline cards-element-scrolls-in-body {
+		source: selector(body);
+		scroll-offsets:
+			/* Start when the start edge touches the top of the scrollport */
+			selector(#cards) start 1,
+			/* End when the start edge touches the start of the scrollport */
+			selector(#cards) start 0
+		;
+		start: selector(#cards) start 1; /* Start when the start edge touches the top of the scrollport */
+		end: selector(#cards) start 0; /* End when the start edge touches the start of the scrollport */
+		time-range: 4s;
+	}
+
+	.card {
+		--index0: calc(var(--index) - 1); /* 0-based index */
+		--reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+		--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
+	}
+	
+	.card__content {
+		transform-origin: 50% 0%;
+		will-change: transform;
+
+		--duration: calc(var(--reverse-index0) * 1s);
+		--delay: calc(var(--index0) * 1s);
+
+		animation: var(--duration) linear scale var(--delay) forwards;
+		animation-timeline: cards-element-scrolls-in-body;
+	}
+
+	@keyframes scale {
+		to {
+			transform:
+				scale(calc(
+					1.1
+					-
+					calc(0.1 * var(--reverse-index))
+				));
+		}
+	}
+}
+
+/** DEBUG **/
+
+#debug {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+}
+#debug::after {
+  content: " Show Debug";
+  margin-left: 1.5em;
+  color: white;
+  white-space: nowrap;
+}
+
+#debug:checked ~ main {
+  --outline-width: 1px;
+}
+
+
+
+#cards {
+	list-style: none;
+	outline: none;
+	
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(var(--numcards), var(--card-height));
+	gap: var(--card-margin);
+}
+
+.card {
+	outline: none;
+}
+
+.card__content {
+	box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.2);
+	background: var(--dark-card);
+	color: var(--text-color);
+	border-radius: 1em;
+	overflow: hidden;
+	display: grid;
+	grid-template-areas: "icon text";
+	grid-template-columns: 80px 1fr;
+	grid-template-rows: 100%;
+	height: var(--card-height);
+	transition: transform 0.3s ease;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+}
+
+.card__content > div {
+	grid-area: text;
+	width: 90%;
+	place-self: start center;
+	text-align: left;
+	padding: 2em;
+	overflow-y: auto;
+	max-height: 100%;
+}
+
+.card__content > figure {
+	grid-area: icon;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--primary-color);
+	color: white;
+	font-size: 2em;
+	padding: 0.8em;
+}
+
+.card__content h2 {
+	color: var(--primary-color);
+	font-size: 1.5em;
+	margin-bottom: 0.5em;
+}
+
+.card__content h3 {
+	color: var(--secondary-color);
+	font-size: 1.2em;
+	margin-bottom: 1em;
+}
+
+.card__content .date {
+	color: var(--accent-color);
+	font-size: 0.9em;
+	margin-bottom: 1em;
+}
+
+.card__content p {
+	margin-bottom: 0.5em;
+	font-size: 0.95em;
+}
+
+.card__content p strong {
+	color: var(--primary-color);
+}
+
+h1 {
+	font-weight: 300;
+	font-size: 3.5em;
+}
+
+h2 {
+	font-weight: 300;
+	font-size: 2.5em;
+}
+
+p {
+	font-family: sans-serif;
+	font-weight: 300;
+	line-height: 1.42;
+}
+
+.btn {
+	background: rgb(188 87 36);
+	color: rgb(255 255 255);
+	text-decoration: none;
+	display: inline-block;
+	padding: 0.5em;
+	border-radius: 0.25em;
+}
+
+aside {
+	width: 50vw;
+	margin: 0 auto;
+	text-align: left;
+}
+
+aside p {
+	margin-bottom: 1em;
+}
+
+.tech-stack {
+    margin-top: 1.5em;
+}
+
+.tech-stack span {
+    display: inline-block;
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: 4px;
+    padding: 0.2em 0.6em;
+    margin: 0.3em;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+}
+
+.tech-stack span:hover {
+    background: rgba(52, 152, 219, 0.2);
+    transform: translateY(-2px);
+}
+
+.tech-stack i {
+    color: var(--primary-color);
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --card-height: 500px;
+    }
+
+    .card__content {
+        grid-template-areas: 
+            "icon"
+            "text";
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px 1fr;
+    }
+
+    .card__content > figure {
+        padding: 0.5em;
+    }
+
+    .card__content > div {
+        padding: 1.5em;
+    }
+
+    .card__content h2 {
+        font-size: 1.3em;
+    }
+
+    .tech-stack span {
+        font-size: 0.8em;
+    }
+}

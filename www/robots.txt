@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Sitemap: https://jabulanigwala.bio/sitemap.xml
+
+# Allow all bots to access everything
+Disallow:
+
+# Crawl-delay for all bots
+Crawl-delay: 10
