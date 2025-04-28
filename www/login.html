@@ -5,93 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="css/main.css">
     <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --dark-bg: #121212;
-            --dark-card: #1E1E1E;
-            --text-color: #E0E0E0;
-            --accent-color: #e74c3c;
-            --transition-speed: 0.3s;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-color);
-            line-height: 1.6;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             overflow: hidden;
             position: relative;
         }
 
-        /* Background Pattern */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
-            opacity: 0.15;
-            z-index: -1;
-            animation: pulse 5s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 0.15;
-            }
-            100% {
-                opacity: 0.25;
-            }
-        }
-
-        .container {
+        .login-container {
             max-width: 400px;
-            width: 100%;
+            width: 90%;
             padding: 30px;
-            background: rgba(30, 30, 30, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.125);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            transition: all var(--transition-speed) ease;
-        }
-
-        .container:hover {
-            transform: scale(1.02);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-            font-weight: bold;
-            letter-spacing: 2px;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .form-group {
@@ -100,43 +28,34 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            color: var(--text-color);
+            margin-bottom: 8px;
             font-weight: 600;
         }
 
         .form-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             background: var(--dark-card);
             color: var(--text-color);
             font-size: 16px;
-            transition: all var(--transition-speed) ease;
         }
 
-        .form-group input:focus {
-            outline: none;
-            background: var(--primary-color);
-            color: var(--dark-bg);
-        }
-
-        button {
+        .login-btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             background: var(--secondary-color);
             color: var(--dark-bg);
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: all var(--transition-speed) ease;
         }
 
-        button:hover {
-            background: var(--accent-color);
+        .login-btn:hover {
+            background: var(--primary-color);
         }
 
         .error-message {
@@ -147,28 +66,17 @@
             display: none;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                max-width: 100%;
+        @media (max-width: 480px) {
+            .login-container {
+                width: 95%;
                 padding: 20px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            .form-group input,
-            button {
-                font-size: 14px;
-                padding: 8px;
             }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h2>Login</h2>
+<body class="dark-theme">
+    <div class="login-container glassmorphic-card">
+        <h2 class="section-title">Login</h2>
         <form id="loginForm">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -178,7 +86,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" class="login-btn">Login</button>
             <div class="error-message" id="errorMessage">Invalid username or password</div>
         </form>
     </div>

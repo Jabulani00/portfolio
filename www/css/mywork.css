@@ -1,0 +1,116 @@
+.impact-numbers {
+    padding: 3rem 0;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.achievement-card {
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    transition: all 0.3s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(52, 152, 219, 0.2);
+}
+
+.achievement-card h3 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.portfolio-highlights, .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.highlight-item, .expertise-card {
+    background: var(--dark-card);
+    padding: 2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.highlight-item:hover, .expertise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(46, 204, 113, 0.15);
+}
+
+.journey-timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-item {
+    background: var(--dark-card);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--primary-color);
+}
+
+.client-success {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.testimonials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.testimonials p {
+    background: var(--dark-card);
+    padding: 1.5rem;
+    border-radius: 10px;
+    min-width: 200px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.testimonials p:hover {
+    transform: scale(1.05);
+}
+
+.approach-points {
+    background: var(--dark-card);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+.call-to-action {
+    text-align: center;
+    padding: 4rem 0;
+    background: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.9));
+    border-radius: 15px;
+    margin: 3rem 0;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}

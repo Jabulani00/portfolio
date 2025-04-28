@@ -58,3 +58,81 @@ body {
     transform: translateY(-10px);
     box-shadow: 0 15px 35px rgba(0,0,0,0.4);
 }
+
+.tech-tag i {
+    margin-right: 5px;
+    color: var(--accent-color);
+}
+
+.tech-tag:hover i {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #3498db, #2ecc71, #e74c3c, #f1c40f);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(52, 152, 219, 0.3);
+    animation: gradientMove 8s ease infinite;
+}
+
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, var(--primary-color) 0%, var(--secondary-color) 100%);
+    opacity: 0.8;
+    border-radius: 50%;
+    filter: blur(1px);
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes particleAnimation {
+    0% {
+        transform: translate(var(--starting-x), var(--starting-y));
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.8;
+    }
+    80% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--ending-x), var(--ending-y));
+        opacity: 0;
+    }
+}
+
+@keyframes logoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes logoFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
