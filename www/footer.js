@@ -8,9 +8,8 @@ class FooterComponent extends HTMLElement {
         <footer>
             <div class="footer-wave"></div>
             <div class="container">
-                <div class="footer-content">
-                    <div class="footer-section brand-section">
-                        <div class="logo">JG</div>
+                <div class="footer-content">                    <div class="footer-section brand-section">
+                        <div class="logo"><img src="assests/logo.png" alt="JG Logo" /></div>
                         <p class="brand-desc">Crafting innovative digital solutions with passion and precision.</p>
                        <div class="social-icons">
     <a href="https://www.instagram.com/jabu.gwala?igsh=czZyeGxqcTY1MHpl" target="_blank" title="Instagram">

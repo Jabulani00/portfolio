@@ -40,17 +40,29 @@
    
     <div class="form-section" id="projectTypeSection">
         <h2>1. Project Type</h2>
-        <div class="option-grid" id="projectTypeGrid">
-            <div class="option-card" data-type="webApp">Web Application</div>
+        <div class="option-grid" id="projectTypeGrid">            <div class="option-card" data-type="webApp">Web Application</div>
             <div class="option-card" data-type="mobileApp">Mobile App</div>
             <div class="option-card" data-type="hybridApp">Hybrid App</div>
-            <div class="option-card" data-type="wordpress">WordPress Site</div>
+            <div class="option-card" data-type="desktopApp">Desktop App/Business Tools</div>
+            <div class="option-card" data-type="wordpress">WordPress/Shopify Site</div>
+            <div class="option-card" data-type="businessProfile">Business Profile</div>
             <div class="option-card" data-type="uiux">UI/UX Design</div>
-            <div class="option-card" data-type="logo">Logo Design</div>
-            <div class="option-card" data-type="chatbot">
+            <div class="option-card" data-type="logo">Logo Design</div><div class="option-card" data-type="chatbot">
                 <div class="card-content">
                     <span class="card-title">Chatbot Development</span>
                     <span class="card-description">AI-Powered Chat Solutions</span>
+                </div>
+            </div>
+            <div class="option-card" data-type="marketplace">
+                <div class="card-content">
+                    <span class="card-title">Marketplace Development</span>
+                    <span class="card-description">Multi-Vendor Platform Solutions</span>
+                </div>
+            </div>
+            <div class="option-card" data-type="marketplace">
+                <div class="card-content">
+                    <span class="card-title">Marketplace Development</span>
+                    <span class="card-description">Multi-Vendor Platform Solutions</span>
                 </div>
             </div>
         </div>
@@ -233,47 +245,75 @@
     
     const pricingModel = {
     webApp: {
-        scopes: {
-            "Small Website (5-10 Pages)": { basePrice: 5000, description: "Perfect for small businesses or personal projects" },
+        scopes: {            "Small Website (5-10 Pages)": { basePrice: 5000, description: "Perfect for small businesses or personal projects" },
             "Medium Website (11-20 Pages)": { basePrice: 8500, description: "Ideal for businesses with more content or features" },
-            "Large Website (21-50 Pages)": { basePrice: 15000, description: "Complex sites with extensive content and functionality" }
-        },
-        functionalities: {
-            "Responsive Design": 1500,
-            "Performance Optimization": 2000,
-            "SEO-friendly Architecture": 1800,
-            "Security Implementation": 2500,
-            "Accessibility Compliance (WCAG)": 2000,
-            "User Experience (UX) Optimization": 2500,
-            "Payment Gateway Integration": 3000,
-            "E-commerce Functionality": 4000
-        },
-        userScale: {
+            "Large Website (21-50 Pages)": { basePrice: 15000, description: "Complex sites with extensive content and functionality" },
+            "Enterprise Website (50+ Pages)": { basePrice: 25000, description: "Large-scale enterprise solutions with advanced features" },
+            "Custom Portal": { basePrice: 35000, description: "Fully customized web portal with unique requirements" }
+        },        functionalities: {
+            "User-friendly Admin Dashboard": 2000,
+            "Mobile Responsive Design": 1500,
+            "Advanced Search & Filter System": 1800,
+            "User Registration & Login": 2000,
+            "Payment Gateway Integration": 2500,
+            "Contact Forms & Newsletter": 1500,
+            "Social Media Integration": 1800,
+            "Blog/News Section": 2000,
+            "Product Catalog & Shopping Cart": 3500,
+            "Customer Reviews & Ratings": 2000,
+            "Order Tracking System": 2500,
+            "Multi-language Support": 2000,
+            "SEO Optimization": 2500,
+            "Performance Monitoring": 2000,
+            "Security Compliance": 3000,
+            "API Integration Hub": 2500,
+            "Content Management System": 2800,
+            "Automated Backup System": 2000,
+            "Analytics & Reporting": 2500,
+            "Custom Workflow Automation": 3000
+        },        userScale: {
             "Up to 100 Users": 1.0,
-            "100-1000 Users": 1.5,
-            "1000-10000 Users": 2.0
+            "100-1000 Users": 1.3,
+            "1000-10000 Users": 1.6,
+            "10000-50000 Users": 2.0,
+            "50000+ Users": 2.5
         }
     },
-    mobileApp: {
-        scopes: {
+    mobileApp: {        scopes: {
             "Simple App (1-3 Screens)": { basePrice: 8000, description: "Basic app with minimal features" },
             "Standard App (4-7 Screens)": { basePrice: 12000, description: "More comprehensive app with multiple functions" },
-            "Complex App (8+ Screens)": { basePrice: 18000, description: "Advanced app with many features and interactions" }
-        },
-        functionalities: {
+            "Complex App (8-15 Screens)": { basePrice: 18000, description: "Advanced app with many features and interactions" },
+            "Enterprise App (16+ Screens)": { basePrice: 25000, description: "Large-scale enterprise mobile solution" },
+            "Custom Platform": { basePrice: 35000, description: "Fully customized mobile platform with unique requirements" }
+        },        functionalities: {
             "Platform-specific UI/UX": 2000,
             "High Performance Optimization": 2500,
             "Offline Mode & Data Sync": 3000,
             "Push Notifications": 2000,
             "Secure Data Storage": 3000,
-            "App Store Optimization (ASO)": 1500,
-            "Mobile Payments (In-App)": 3500,
-            "E-commerce & Marketplace": 4500
-        },
-        userScale: {
+            "App Store Optimization": 1500,
+            "Mobile Payments Integration": 3500,
+            "E-commerce & Marketplace": 4500,
+            "Social Media Integration": 2000,
+            "Real-time Chat/Messaging": 3500,
+            "Biometric Authentication": 2500,
+            "GPS & Location Services": 3000,
+            "Analytics & User Tracking": 2500,
+            "AI/ML Features": 4000,
+            "AR/VR Integration": 5000,
+            "Multi-language Support": 2000,
+            "File Upload/Download": 2500,
+            "Video Streaming": 4000,
+            "IoT Device Integration": 3500,
+            "Voice Commands": 3000,
+            "Social Sharing": 2000,
+            "Gamification Features": 3500
+        },        userScale: {
             "Up to 500 Users": 1.0,
             "500-5000 Users": 1.5,
-            "5000-50000 Users": 2.0
+            "5000-50000 Users": 2.0,
+            "50000-100000 Users": 2.5,
+            "100000+ Users": 3.0
         }
     },
     hybridApp: {
@@ -281,8 +321,7 @@
             "Basic Hybrid App": { basePrice: 5000, description: "Simple cross-platform app with basic features" },
             "Advanced Hybrid App": { basePrice: 10000, description: "Feature-rich cross-platform application" },
             "Enterprise Hybrid": { basePrice: 20000, description: "Complex enterprise-level hybrid solution" }
-        },
-        functionalities: {
+        },        functionalities: {
             "Cross-platform Optimization": 2000,
             "Native Feature Integration": 2500,
             "Performance Enhancement": 2000,
@@ -290,12 +329,21 @@
             "Secure API Communication": 3000,
             "Background Sync & Offline Data": 2500,
             "Mobile Payment & Subscriptions": 3500,
-            "E-commerce & Product Listings": 4000
-        },
-        userScale: {
+            "E-commerce & Product Listings": 4000,
+            "Social Media Integration": 2000,
+            "Real-time Chat/Messaging": 3000,
+            "Biometric Security": 2500,
+            "Location-based Services": 2800,
+            "Multi-device Sync": 3000,
+            "Custom Analytics Dashboard": 2500,
+            "Advanced Caching": 2000,
+            "Voice/Video Integration": 4000
+        },        userScale: {
             "Up to 1000 Users": 1.0,
-            "1000-10000 Users": 1.5,
-            "10000+ Users": 2.0
+            "1000-10000 Users": 1.3,
+            "10000-50000 Users": 1.6,
+            "50000-100000 Users": 2.0,
+            "100000+ Users": 2.5
         }
     },
     saas: {
@@ -322,24 +370,41 @@
     },
     wordpress: {
         scopes: {
-            "Basic WordPress Site": { basePrice: 4000, description: "Simple website with basic functionality" },
-            "Advanced WordPress Site": { basePrice: 7500, description: "More complex site with custom features" },
-            "E-commerce WordPress Site": { basePrice: 12000, description: "Full-featured online store" }
-        },
-        functionalities: {
+            "Basic WordPress/Shopify Site": { basePrice: 4000, description: "Simple website with basic functionality" },
+            "Advanced WordPress/Shopify Site": { basePrice: 7500, description: "More complex site with custom features" },
+            "E-commerce Store": { basePrice: 12000, description: "Full-featured online store with advanced functionality" },
+            "Custom Marketplace": { basePrice: 18000, description: "Multi-vendor marketplace solution" }
+        },        functionalities: {
             "Custom Theme Development": 2000,
             "E-commerce Setup": 2500,
             "SEO & Performance Optimization": 2000,
             "Security & Backup Solutions": 1800,
-            "Membership & Subscription Features": 3000,
-            "Multi-language & Localization": 2500,
-            "WooCommerce & Payment Integration": 3000,
-            "Advanced E-commerce Features": 4000
-        },
-        userScale: {
-            "Up to 100 Users": 1.0,
-            "100-1000 Users": 1.5,
-            "1000-10000 Users": 2.0
+            "Membership System": 3000,
+            "Multi-language Setup": 2500,
+            "Payment Gateway Integration": 3000,
+            "Advanced E-commerce Features": 4000,
+            "Custom Plugin/App Development": 3500,
+            "Third-party Integrations": 2800,
+            "Advanced Analytics": 2200,
+            "Social Media Integration": 1800,
+            "Marketing Automation": 2500,
+            "Content Migration": 2000,
+            "Custom User Roles": 1500,
+            "Advanced Forms": 2800,
+            "Product Management System": 3000,
+            "Inventory Sync": 2500,
+            "Shipping Integration": 2800,
+            "Tax Automation": 2000,
+            "Order Management": 2500,
+            "Customer Account Portal": 2000,
+            "Discount & Coupon System": 1800,
+            "Automated Email Marketing": 2500
+        },        userScale: {
+            "Up to 1000 Monthly Visitors": 1.0,
+            "1000-10000 Monthly Visitors": 1.5,
+            "10000-50000 Monthly Visitors": 2.0,
+            "50000-100000 Monthly Visitors": 2.5,
+            "100000+ Monthly Visitors": 3.0
         }
     },
     uiux: {
@@ -349,14 +414,26 @@
             "Premium Design Experience": { basePrice: 15000, description: "High-end design with extensive research and refinement" }
         },
         functionalities: {
-            "User Research & Persona Development": 2500,
+            "User Research & Personas": 2500,
             "Wireframing & Prototyping": 2000,
             "Interactive UI & Animations": 3000,
             "Dark Mode & Theming": 1800,
-            "Accessibility Optimization (WCAG)": 2500,
-            "Usability Testing & Iteration": 3000,
-            "E-commerce UX/UI Optimization": 3500,
-            "Payment UI/UX Design": 2800
+            "Accessibility (WCAG)": 2500,
+            "Usability Testing": 3000,
+            "E-commerce UX": 3500,
+            "Payment UI/UX": 2800,
+            "Information Architecture": 3000,
+            "Micro-interactions": 2500,
+            "Design System Creation": 4000,
+            "Mobile-First Design": 2500,
+            "User Flow Optimization": 2800,
+            "Visual Design": 3000,
+            "Brand Identity Integration": 2500,
+            "Motion Design": 3500,
+            "Design QA": 2000,
+            "UX Writing": 2500,
+            "Interactive Prototypes": 3000,
+            "Design Documentation": 2000
         },
         userScale: {
             "Small Project": 1.0,
@@ -371,13 +448,26 @@
             "Premium Brand Identity": { basePrice: 1500, description: "Complete brand identity package" }
         },
         functionalities: {
-            "Custom Typography & Lettering": 400,
-            "Illustrated & Mascot Logos": 600,
-            "Logo Animation (GIF/Video)": 800,
-            "Brand Guidelines & Identity": 1000,
-            "Marketing Collateral Design": 1500,
-            "E-commerce Branding Assets": 2000,
-            "Secure Payment Logo Design": 1000
+            "Custom Typography": 400,
+            "Illustrated Logos": 600,
+            "Logo Animation": 800,
+            "Brand Guidelines": 1000,
+            "Marketing Collateral": 1500,
+            "Social Media Kit": 2000,
+            "Business Cards": 1000,
+            "Vector Formats": 500,
+            "Color Variations": 400,
+            "Icon Design": 600,
+            "Responsive Logo": 800,
+            "Brand Story": 1000,
+            "Stationery Design": 1200,
+            "Packaging Design": 2000,
+            "Brand Book": 2500,
+            "Digital Assets": 1500,
+            "Motion Graphics": 2000,
+            "3D Logo Rendering": 2500,
+            "Brand Strategy": 3000,
+            "Style Guide": 1800
         },
         userScale: {
             "Basic License": 1.0,
@@ -403,12 +493,141 @@
             "CRM Integration": 2500,
             "Sentiment Analysis": 2000,
             "Customer Journey Tracking": 1500,
-            "Knowledge Base Integration": 2000
+            "Knowledge Base Integration": 2000,
+            "Multi-platform Support": 3500,
+            "Contextual Understanding": 3000,
+            "Rich Media Responses": 2500,
+            "Conversation Flow Designer": 2800,
+            "A/B Testing": 2000,
+            "Custom Training Data": 3500,
+            "Workflow Automation": 2500,
+            "Voice Bot Features": 3000,
+            "Intent Recognition": 2800,
+            "Session Management": 2000
         },
         userScale: {
             "Up to 500 chats/month": 1.0,
             "500-5000 chats/month": 1.5,
             "5000+ chats/month": 2.0
+        }
+    },
+    marketplace: {
+        scopes: {            "Web Only Marketplace": { 
+                basePrice: 15000, 
+                description: "Pure web-based marketplace with responsive design" 
+            },
+            "Android App Marketplace": { 
+                basePrice: 20000, 
+                description: "Native Android marketplace application" 
+            },
+            "iOS App Marketplace": { 
+                basePrice: 22000, 
+                description: "Native iOS marketplace application" 
+            },
+            "Cross-Platform Mobile": { 
+                basePrice: 28000, 
+                description: "Hybrid app supporting both iOS and Android" 
+            },
+            "Web + Android": { 
+                basePrice: 32000, 
+                description: "Web marketplace with Android native app" 
+            },
+            "Web + iOS": { 
+                basePrice: 35000, 
+                description: "Web marketplace with iOS native app" 
+            },
+            "Hybrid + Web": { 
+                basePrice: 40000, 
+                description: "Web platform with hybrid mobile app" 
+            },
+            "Full Stack Suite": { 
+                basePrice: 50000, 
+                description: "Complete solution: Web + iOS + Android + Admin" 
+            }
+        },
+        functionalities: {
+            "Multi-vendor Management": 4000,
+            "Vendor Dashboard": 3500,
+            "Commission System": 3000,
+            "Advanced Search & Filters": 2500,
+            "Real-time Chat System": 3000,
+            "Review & Rating System": 2500,
+            "Secure Payment Gateway": 4000,
+            "Order Management": 3500,
+            "Inventory Management": 3000,
+            "Dynamic Pricing": 2500,
+            "Dispute Resolution System": 3500,
+            "Multi-currency Support": 3000,
+            "Vendor Analytics": 2800,
+            "Automated Payouts": 3500,
+            "SEO Optimization": 2500,
+            "Mobile App Integration": 4000,
+            "Social Commerce Features": 3000,
+            "Marketing Tools": 2800,
+            "Wishlist & Collections": 2000,
+            "Product Comparison": 2500,
+            "Bulk Upload Tools": 2200,
+            "API Integration": 3500,
+            "Fraud Prevention": 4000,
+            "Logistics Integration": 3500
+        },
+        userScale: {
+            "Up to 50 Vendors": 1.0,
+            "51-200 Vendors": 1.4,
+            "201-500 Vendors": 1.8,
+            "501-1000 Vendors": 2.2,
+            "1000+ Vendors": 2.8
+        }
+    },
+    desktopApp: {
+        scopes: {
+            "Basic Desktop Application": { 
+                basePrice: 12000, 
+                description: "Simple desktop software with core functionality" 
+            },
+            "Business Management Suite": { 
+                basePrice: 20000, 
+                description: "Comprehensive business management tools" 
+            },
+            "Enterprise Resource Planning": { 
+                basePrice: 35000, 
+                description: "Full-scale ERP solution" 
+            },
+            "Custom Industry Solution": { 
+                basePrice: 45000, 
+                description: "Specialized industry-specific desktop software" 
+            }
+        },
+        functionalities: {
+            "User Authentication System": 2500,
+            "Data Encryption & Security": 3000,
+            "Offline Data Management": 2500,
+            "Document Processing": 2800,
+            "Database Integration": 3500,
+            "Automated Reporting": 3000,
+            "Data Import/Export": 2500,
+            "Backup & Recovery": 2000,
+            "Multi-user Support": 2500,
+            "Role-based Access Control": 2800,
+            "Custom Forms & Templates": 2500,
+            "Workflow Automation": 3500,
+            "Financial Management": 4000,
+            "Inventory Management": 3500,
+            "Resource Scheduling": 3000,
+            "Printing & Export Options": 2000,
+            "Third-party Integrations": 3000,
+            "Network Synchronization": 2800,
+            "Audit Trail & Logging": 2500,
+            "Business Analytics": 3500,
+            "Application Updates": 2000,
+            "Technical Support System": 2500
+        },
+        userScale: {
+            "Single User": 1.0,
+            "2-10 Users": 1.3,
+            "11-50 Users": 1.6,
+            "51-200 Users": 2.0,
+            "Enterprise (200+ Users)": 2.5
         }
     }
 };

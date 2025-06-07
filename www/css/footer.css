@@ -52,6 +52,12 @@ footer::before {
     -webkit-text-fill-color: transparent;
 }
 
+.brand-section .logo img {
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+}
+
 .brand-desc {
     color: var(--text-color);
     opacity: 0.8;

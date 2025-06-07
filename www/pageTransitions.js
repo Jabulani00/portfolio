@@ -1,10 +1,8 @@
 class PageTransitionManager {
     constructor() {
         this.overlay = this.createOverlay();
-        this.logoContainer = this.createLogoContainer();
         this.particlesContainer = this.createParticlesContainer();
         this.overlay.appendChild(this.particlesContainer);
-        this.overlay.appendChild(this.logoContainer);
         document.body.appendChild(this.overlay);
         this.initializeTransitions();
         this.currentPage = window.location.pathname;
@@ -17,13 +15,6 @@ class PageTransitionManager {
         return overlay;
     }
 
-    createLogoContainer() {
-        const logo = document.createElement('div');
-        logo.className = 'logo-container';
-        logo.innerHTML = '<span class="gradient-text">Jabulai Gwala</span>';
-        return logo;
-    }
-
     createParticlesContainer() {
         const container = document.createElement('div');
         container.className = 'particles-container';
@@ -33,27 +24,14 @@ class PageTransitionManager {
     createParticle() {
         const particle = document.createElement('div');
         particle.className = 'particle';
-        const size = Math.random() * 6 + 2;
+        const size = Math.random() * 4 + 2; // Reduced particle size range
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         
-        // Determine if particle should be at bottom
-        const isBottomParticle = Math.random() < 0.4;
-        let startX, startY, endX, endY;
-        
-        if (isBottomParticle) {
-            startX = Math.random() * window.innerWidth;
-            startY = window.innerHeight + 10;
-            endX = startX + (Math.random() - 0.5) * 100;
-            endY = window.innerHeight - Math.random() * 100;
-        } else {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = Math.random() * 200;
-            startX = Math.cos(angle) * radius;
-            startY = Math.sin(angle) * radius;
-            endX = (Math.random() - 0.5) * 60;
-            endY = (Math.random() - 0.5) * 60;
-        }
+        const startX = Math.random() * window.innerWidth;
+        const startY = window.innerHeight;
+        const endX = startX + (Math.random() - 0.5) * 50; // Reduced movement range
+        const endY = -10; // All particles move upward
         
         particle.style.setProperty('--starting-x', `${startX}px`);
         particle.style.setProperty('--starting-y', `${startY}px`);
@@ -80,23 +58,21 @@ class PageTransitionManager {
     async animateIn() {
         this.overlay.style.display = 'flex';
         this.createParticles();
-        this.logoContainer.style.animation = 'logoFadeIn 0.8s forwards';
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 400)); // Reduced duration
     }
 
     async animateOut() {
-        this.logoContainer.style.animation = 'logoFadeOut 0.8s forwards';
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise(resolve => setTimeout(resolve, 300)); // Reduced duration
         this.particles.forEach(p => p.remove());
         this.particles = [];
         this.overlay.style.display = 'none';
     }
 
     createParticles() {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 50; i++) { // Reduced number of particles
             const particle = this.createParticle();
             this.particlesContainer.appendChild(particle);
-            particle.style.animation = `particleAnimation ${Math.random() * 2 + 1}s cubic-bezier(0.4, 0, 0.2, 1) infinite`;
+            particle.style.animation = `particleAnimation ${Math.random() * 0.5 + 0.5}s ease-out`; // Faster animation
             this.particles.push(particle);
         }
     }

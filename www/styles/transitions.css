@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--dark-bg);
+    background-color: rgba(0, 0, 0, 0.8);
     display: none;
     justify-content: center;
     align-items: center;
@@ -16,9 +16,25 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+    will-change: transform;
 }
 
-.logo-container {
-    z-index: 1001;
-    opacity: 0;
+.particle {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    transform: translate(var(--starting-x), var(--starting-y));
+    will-change: transform, opacity;
+}
+
+@keyframes particleAnimation {
+    0% {
+        transform: translate(var(--starting-x), var(--starting-y));
+        opacity: 0;
+    }
+    100% {
+        transform: translate(var(--ending-x), var(--ending-y));
+        opacity: 0;
+    }
 }

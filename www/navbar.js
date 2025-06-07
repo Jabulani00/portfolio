@@ -34,7 +34,7 @@ class HeaderComponent extends HTMLElement {
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="../index.html">
-                    <span class="brand-text">JG</span>
+                    <img src="assests/logo.png" alt="JG Logo" class="brand-logo" width="40" height="40">
                     <span class="brand-full">Jabulani Gwala</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
