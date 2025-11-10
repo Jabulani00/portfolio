@@ -98,7 +98,11 @@
             const password = document.getElementById('password').value.trim();
             const errorMessage = document.getElementById('errorMessage');
             if (username === 'JabuMB' && password === 'Innovation@022') {
-                window.location.href = '../html/qouteviewer.html';
+                // Set authentication token in localStorage
+                localStorage.setItem('isAuthenticated', 'true');
+                localStorage.setItem('authTimestamp', Date.now().toString());
+                // Redirect to quote viewer
+                window.location.href = 'qouteviewer.html';
             } else {
                 errorMessage.style.display = 'block';
             }

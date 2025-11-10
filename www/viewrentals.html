@@ -118,6 +118,25 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
     <script>
+       // Authentication check - must be first
+       (function() {
+           const isAuthenticated = localStorage.getItem('isAuthenticated');
+           const authTimestamp = localStorage.getItem('authTimestamp');
+           
+           // Check if user is authenticated and session is valid (24 hours)
+           const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+           const isValidSession = authTimestamp && (Date.now() - parseInt(authTimestamp)) < SESSION_DURATION;
+           
+           if (!isAuthenticated || !isValidSession) {
+               // Clear invalid session
+               localStorage.removeItem('isAuthenticated');
+               localStorage.removeItem('authTimestamp');
+               // Redirect to home
+               window.location.href = '/';
+               return;
+           }
+       })();
+       
        // Firebase initialization remains the same
 // Firebase configuration
 const firebaseConfig = {

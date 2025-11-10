@@ -1,0 +1,40 @@
+{
+    "hosting": {
+      "public": "www",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "cleanUrls": true,
+      "rewrites": [
+        { "source": "/", "destination": "/index.html" },
+        { "source": "/about", "destination": "/about.html" },
+        { "source": "/expertise", "destination": "/expertise.html" },
+        { "source": "/projects", "destination": "/projects.html" },
+        { "source": "/all-projects", "destination": "/all-projects.html" },
+        { "source": "/mysaas", "destination": "/mysaas.html" },
+        { "source": "/saas", "destination": "/saas.html" },
+        { "source": "/pricing", "destination": "/pricing.html" },
+        { "source": "/quote", "destination": "/quote.html" },
+        { "source": "/quote-viewer", "destination": "/qouteviewer.html" },
+        { "source": "/contact", "destination": "/contact.html" },
+        { "source": "/login", "destination": "/login.html" },
+        { "source": "/rentals", "destination": "/viewrentals.html" }
+      ],
+      "redirects": [
+        { "source": "/home", "destination": "/", "type": 301 },
+        { "source": "/quotes", "destination": "/quote", "type": 301 }
+      ],
+      "headers": [
+        {
+          "source": "**/*.html",
+          "headers": [
+            { "key": "Cache-Control", "value": "no-cache" }
+          ]
+        }
+      ],
+      "errorPage": "/404.html"
+    }
+  }
+  
